@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="developer" content="مجتبی فروغی - 09133343583">
     <title>سیستم جامع مدیریت تغذیه گیاهان</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -146,6 +147,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+        }
+
+        .developer-info {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: var(--text-secondary);
+            opacity: 0.8;
         }
 
         .app-nav {
@@ -747,6 +759,14 @@
                 width: 100%;
                 padding: 10mm;
             }
+            
+            .developer-info {
+                position: relative;
+                left: 0;
+                margin-top: 10px;
+                width: 100%;
+                text-align: center;
+            }
         }
 
         @media (max-width: 768px) {
@@ -933,13 +953,6 @@
                     <button id="login-btn" class="btn btn-primary" style="width: 100%; margin-top: 20px;">
                         <i class="fas fa-sign-in-alt"></i> ورود به سیستم
                     </button>
-                    
-                    <div class="alert alert-info" style="margin-top: 20px;">
-                        <strong>کاربران پیش‌فرض:</strong><br>
-                        مدیر: admin / Admin@2024<br>
-                        کارشناس: expert / Expert@2024<br>
-                        کاربر: user / User@2024
-                    </div>
                 </div>
                 
                 <!-- فرم ثبت‌نام -->
@@ -982,10 +995,6 @@
                     <button id="register-btn" class="btn btn-success" style="width: 100%; margin-top: 20px;">
                         <i class="fas fa-user-plus"></i> ثبت‌نام در سیستم
                     </button>
-                    
-                    <p style="text-align: center; margin-top: 20px; color: var(--text-secondary); font-size: 14px;">
-                        پس از ثبت‌نام، حساب کاربری شما باید توسط مدیر سیستم تأیید شود.
-                    </p>
                 </div>
             </div>
         </div>
@@ -998,6 +1007,9 @@
             <div>
                 <h1 style="color: var(--primary-color); margin-bottom: 5px;">سیستم جامع مدیریت تغذیه گیاهان</h1>
                 <p style="color: var(--text-secondary);" id="user-info">خوش آمدید</p>
+            </div>
+            <div class="developer-info">
+                توسعه‌دهنده: مجتبی فروغی - 09133343583
             </div>
             <div style="display: flex; gap: 15px; align-items: center;">
                 <button id="print-btn" class="btn btn-secondary no-print">
@@ -1051,7 +1063,7 @@
                         </div>
                         <div class="stat-content">
                             <div class="stat-value" id="total-users">0</div>
-                            <div class="stat-label">کاربران سیستم</div>
+                            <div class="stat-label">کاربران فعال</div>
                         </div>
                     </div>
                     
@@ -1098,7 +1110,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3>کاربران جدید</h3>
-                            <button class="btn btn-sm btn-secondary" data-screen="users">مشاهده همه</button>
+                            <button class="btn btn-sm btn-secondary admin-only" data-screen="users" style="display: none;">مشاهده همه</button>
                         </div>
                         <div id="recent-users" style="min-height: 200px;"></div>
                     </div>
@@ -1245,10 +1257,9 @@
                     <p class="card-subtitle">مدیریت و مشاهده گزارش‌های تولید شده</p>
                     
                     <div class="planner-tabs">
-                        <button class="planner-tab active" data-report-tab="all">همه گزارش‌ها</button>
-                        <button class="planner-tab" data-report-tab="monthly">ماهانه</button>
-                        <button class="planner-tab" data-report-tab="crop">بر اساس محصول</button>
-                        <button class="planner-tab" data-report-tab="user">بر اساس کاربر</button>
+                        <button class="planner-tab active" data-report-tab="my-reports">گزارش‌های من</button>
+                        <button class="planner-tab admin-only" data-report-tab="all" style="display: none;">همه گزارش‌ها</button>
+                        <button class="planner-tab admin-only" data-report-tab="monthly" style="display: none;">ماهانه</button>
                     </div>
                     
                     <div id="reports-container" style="padding: 20px; text-align: center; color: var(--text-secondary);">
@@ -1272,6 +1283,7 @@
                         <div class="form-group">
                             <select id="history-filter" class="form-control">
                                 <option value="all">همه موارد</option>
+                                <option value="my-history">محاسبات من</option>
                                 <option value="last-week">هفته گذشته</option>
                                 <option value="last-month">ماه گذشته</option>
                                 <option value="last-year">سال گذشته</option>
@@ -1370,13 +1382,12 @@
                 </div>
             </div>
             
-            <!-- فرمول‌های محاسباتی (فقط برای مدیر) -->
+            <!-- فرمول‌های محاسباتی -->
             <div id="formulas-screen" class="screen">
                 <div class="formulas-section">
                     <h2 class="card-title">مدیریت فرمول‌های محاسباتی</h2>
                     <p class="card-subtitle">تنظیم و ویرایش فرمول‌ها و پارامترهای محاسباتی سیستم</p>
                     
-                    <!-- دسته‌بندی فرمول‌ها -->
                     <div class="formula-category">
                         <h3 style="color: var(--primary-color); margin-bottom: 20px;">
                             <i class="fas fa-calculator"></i> فرمول‌های محاسبه عناصر اصلی
@@ -1735,6 +1746,7 @@
                     <div class="report-footer">
                         <p>این گزارش به صورت خودکار توسط سیستم جامع مدیریت تغذیه گیاهان تولید شده است.</p>
                         <p>تاریخ تولید: <span id="report-generation-date"></span></p>
+                        <p style="font-size: 10px; margin-top: 10px;">توسعه‌دهنده: مجتبی فروغی - 09133343583</p>
                     </div>
                 </div>
                 
@@ -1775,41 +1787,46 @@
             }
             
             loadData() {
-                // بارگذاری کاربران
-                const usersData = localStorage.getItem('nutrition_users');
-                if (usersData) {
-                    this.users = JSON.parse(usersData);
-                } else {
+                try {
+                    // بارگذاری کاربران
+                    const usersData = localStorage.getItem('nutrition_users');
+                    if (usersData) {
+                        this.users = JSON.parse(usersData);
+                    } else {
+                        this.createDefaultUsers();
+                    }
+                    
+                    // بارگذاری قیمت‌ها
+                    const pricesData = localStorage.getItem('nutrition_prices');
+                    if (pricesData) {
+                        this.prices = JSON.parse(pricesData);
+                    } else {
+                        this.createDefaultPrices();
+                    }
+                    
+                    // بارگذاری محاسبات
+                    const calculationsData = localStorage.getItem('nutrition_calculations');
+                    if (calculationsData) {
+                        this.calculations = JSON.parse(calculationsData);
+                    }
+                    
+                    // بارگذاری فرمول‌ها
+                    const formulasData = localStorage.getItem('nutrition_formulas');
+                    if (formulasData) {
+                        this.formulas = JSON.parse(formulasData);
+                    } else {
+                        this.createDefaultFormulas();
+                    }
+                    
+                    // بارگذاری کاربر جاری
+                    const currentUserData = localStorage.getItem('currentUser');
+                    if (currentUserData) {
+                        this.currentUser = JSON.parse(currentUserData);
+                        this.showMainApp();
+                    }
+                } catch (error) {
+                    console.error('خطا در بارگذاری داده‌ها:', error);
                     this.createDefaultUsers();
-                }
-                
-                // بارگذاری قیمت‌ها
-                const pricesData = localStorage.getItem('nutrition_prices');
-                if (pricesData) {
-                    this.prices = JSON.parse(pricesData);
-                } else {
-                    this.createDefaultPrices();
-                }
-                
-                // بارگذاری محاسبات
-                const calculationsData = localStorage.getItem('nutrition_calculations');
-                if (calculationsData) {
-                    this.calculations = JSON.parse(calculationsData);
-                }
-                
-                // بارگذاری فرمول‌ها
-                const formulasData = localStorage.getItem('nutrition_formulas');
-                if (formulasData) {
-                    this.formulas = JSON.parse(formulasData);
-                } else {
-                    this.createDefaultFormulas();
-                }
-                
-                // بارگذاری کاربر جاری
-                const currentUserData = localStorage.getItem('currentUser');
-                if (currentUserData) {
-                    this.currentUser = JSON.parse(currentUserData);
-                    this.showMainApp();
                 }
             }
             
@@ -1900,68 +1917,37 @@
                     nitrogen: {
                         base: 70,
                         regionFactor: 1.0,
-                        efficiency: 65, // درصد
+                        efficiency: 65,
                         leachingFactor: 0.15
                     },
                     phosphorus: {
                         base: 45,
                         phFactor: 1.0,
                         organicFactor: 1.0,
-                        efficiency: 25 // درصد
+                        efficiency: 25
                     },
                     potassium: {
                         base: 80,
                         textureFactor: 1.0,
                         moistureFactor: 1.0,
-                        efficiency: 70 // درصد
+                        efficiency: 70
                     },
                     
                     // ضرایب منطقه‌ای
                     regionFactors: {
-                        north: 1.1,    // شمال (خزر)
-                        central: 1.0,   // مرکزی
-                        south: 0.9,     // جنوب
-                        east: 0.95,     // شرق
-                        west: 1.05      // غرب
+                        north: 1.1,
+                        central: 1.0,
+                        south: 0.9,
+                        east: 0.95,
+                        west: 1.05
                     },
                     
                     // ضرایب مرحله رشد
                     growthFactors: {
-                        initial: 1.0,       // مرحله ابتدایی
-                        vegetative: 1.2,    // رشد رویشی
-                        reproductive: 1.5,  // تولید مثل
-                        ripening: 0.8       // رسیدگی
-                    },
-                    
-                    // ضرایب بافت خاک
-                    textureFactors: {
-                        sandy: 1.3,        // شنی
-                        loamySandy: 1.1,   // لومی شنی
-                        loamy: 1.0,        // لومی
-                        clayLoam: 0.9,     // رسی لومی
-                        clay: 0.8          // رسی
-                    },
-                    
-                    // استانداردهای تفسیر
-                    interpretation: {
-                        nitrogen: {
-                            veryLow: 20,
-                            low: 40,
-                            medium: 60,
-                            high: 80
-                        },
-                        phosphorus: {
-                            veryLow: 5,
-                            low: 10,
-                            medium: 15,
-                            high: 25
-                        },
-                        potassium: {
-                            veryLow: 100,
-                            low: 150,
-                            medium: 200,
-                            high: 250
-                        }
+                        initial: 1.0,
+                        vegetative: 1.2,
+                        reproductive: 1.5,
+                        ripening: 0.8
                     },
                     
                     // نیازهای پایه محصولات (kg/ha)
@@ -2060,6 +2046,26 @@
                         btn.closest('.modal').classList.remove('active');
                     });
                 });
+                
+                // فیلتر تاریخچه
+                document.getElementById('history-filter').addEventListener('change', () => this.loadHistory());
+                document.getElementById('history-search').addEventListener('input', () => this.loadHistory());
+                
+                // صفحه‌بندی
+                document.getElementById('prev-page').addEventListener('click', () => {
+                    if (this.currentPage > 1) {
+                        this.currentPage--;
+                        this.loadHistoryPage();
+                    }
+                });
+                
+                document.getElementById('next-page').addEventListener('click', () => {
+                    const totalPages = Math.ceil(this.calculations.length / this.itemsPerPage);
+                    if (this.currentPage < totalPages) {
+                        this.currentPage++;
+                        this.loadHistoryPage();
+                    }
+                });
             }
             
             setupPlannerInputs() {
@@ -2088,7 +2094,7 @@
                     <div class="form-group">
                         <label class="form-label">${element.name} (${element.symbol})</label>
                         <input type="number" class="form-control soil-input" 
-                               data-element="${element.key}" placeholder="0" min="0" step="0.1">
+                               data-element="${element.key}" placeholder="0" min="0" step="0.1" value="0">
                         <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">
                             ${element.unit}
                         </div>
@@ -2111,7 +2117,7 @@
                     <div class="form-group">
                         <label class="form-label">${element.name} (${element.symbol})</label>
                         <input type="number" class="form-control water-input" 
-                               data-element="${element.key}" placeholder="0" min="0" step="0.1">
+                               data-element="${element.key}" placeholder="0" min="0" step="0.1" value="0">
                         <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">
                             ${element.unit}
                         </div>
@@ -2120,60 +2126,85 @@
             }
             
             loadFormulas() {
-                // بارگذاری مقادیر فرمول‌ها در فرم‌ها
                 if (this.formulas.nitrogen) {
-                    document.getElementById('formula-n-base').value = this.formulas.nitrogen.base;
-                    document.getElementById('formula-n-region').value = this.formulas.nitrogen.regionFactor;
-                    document.getElementById('formula-n-efficiency').value = this.formulas.nitrogen.efficiency;
-                    document.getElementById('formula-n-leaching').value = this.formulas.nitrogen.leachingFactor;
+                    const nBase = document.getElementById('formula-n-base');
+                    const nRegion = document.getElementById('formula-n-region');
+                    const nEfficiency = document.getElementById('formula-n-efficiency');
+                    const nLeaching = document.getElementById('formula-n-leaching');
+                    
+                    if (nBase) nBase.value = this.formulas.nitrogen.base;
+                    if (nRegion) nRegion.value = this.formulas.nitrogen.regionFactor;
+                    if (nEfficiency) nEfficiency.value = this.formulas.nitrogen.efficiency;
+                    if (nLeaching) nLeaching.value = this.formulas.nitrogen.leachingFactor;
                 }
                 
                 if (this.formulas.phosphorus) {
-                    document.getElementById('formula-p-base').value = this.formulas.phosphorus.base;
-                    document.getElementById('formula-p-ph').value = this.formulas.phosphorus.phFactor;
-                    document.getElementById('formula-p-efficiency').value = this.formulas.phosphorus.efficiency;
-                    document.getElementById('formula-p-organic').value = this.formulas.phosphorus.organicFactor;
+                    const pBase = document.getElementById('formula-p-base');
+                    const pPh = document.getElementById('formula-p-ph');
+                    const pEfficiency = document.getElementById('formula-p-efficiency');
+                    const pOrganic = document.getElementById('formula-p-organic');
+                    
+                    if (pBase) pBase.value = this.formulas.phosphorus.base;
+                    if (pPh) pPh.value = this.formulas.phosphorus.phFactor;
+                    if (pEfficiency) pEfficiency.value = this.formulas.phosphorus.efficiency;
+                    if (pOrganic) pOrganic.value = this.formulas.phosphorus.organicFactor;
                 }
                 
                 if (this.formulas.potassium) {
-                    document.getElementById('formula-k-base').value = this.formulas.potassium.base;
-                    document.getElementById('formula-k-texture').value = this.formulas.potassium.textureFactor;
-                    document.getElementById('formula-k-efficiency').value = this.formulas.potassium.efficiency;
-                    document.getElementById('formula-k-moisture').value = this.formulas.potassium.moistureFactor;
+                    const kBase = document.getElementById('formula-k-base');
+                    const kTexture = document.getElementById('formula-k-texture');
+                    const kEfficiency = document.getElementById('formula-k-efficiency');
+                    const kMoisture = document.getElementById('formula-k-moisture');
+                    
+                    if (kBase) kBase.value = this.formulas.potassium.base;
+                    if (kTexture) kTexture.value = this.formulas.potassium.textureFactor;
+                    if (kEfficiency) kEfficiency.value = this.formulas.potassium.efficiency;
+                    if (kMoisture) kMoisture.value = this.formulas.potassium.moistureFactor;
                 }
                 
                 // بارگذاری ضرایب منطقه‌ای
                 if (this.formulas.regionFactors) {
-                    document.getElementById('factor-north').value = this.formulas.regionFactors.north;
-                    document.getElementById('factor-central').value = this.formulas.regionFactors.central;
-                    document.getElementById('factor-south').value = this.formulas.regionFactors.south;
-                    document.getElementById('factor-east').value = this.formulas.regionFactors.east;
-                    document.getElementById('factor-west').value = this.formulas.regionFactors.west;
+                    const north = document.getElementById('factor-north');
+                    const central = document.getElementById('factor-central');
+                    const south = document.getElementById('factor-south');
+                    const east = document.getElementById('factor-east');
+                    const west = document.getElementById('factor-west');
+                    
+                    if (north) north.value = this.formulas.regionFactors.north;
+                    if (central) central.value = this.formulas.regionFactors.central;
+                    if (south) south.value = this.formulas.regionFactors.south;
+                    if (east) east.value = this.formulas.regionFactors.east;
+                    if (west) west.value = this.formulas.regionFactors.west;
                 }
                 
                 // بارگذاری ضرایب رشد
                 if (this.formulas.growthFactors) {
-                    document.getElementById('factor-initial').value = this.formulas.growthFactors.initial;
-                    document.getElementById('factor-vegetative').value = this.formulas.growthFactors.vegetative;
-                    document.getElementById('factor-reproductive').value = this.formulas.growthFactors.reproductive;
-                    document.getElementById('factor-ripening').value = this.formulas.growthFactors.ripening;
+                    const initial = document.getElementById('factor-initial');
+                    const vegetative = document.getElementById('factor-vegetative');
+                    const reproductive = document.getElementById('factor-reproductive');
+                    const ripening = document.getElementById('factor-ripening');
+                    
+                    if (initial) initial.value = this.formulas.growthFactors.initial;
+                    if (vegetative) vegetative.value = this.formulas.growthFactors.vegetative;
+                    if (reproductive) reproductive.value = this.formulas.growthFactors.reproductive;
+                    if (ripening) ripening.value = this.formulas.growthFactors.ripening;
                 }
             }
             
             showAuthTab(tabId) {
-                // مخفی کردن همه تب‌ها
                 document.querySelectorAll('.auth-content').forEach(content => {
                     content.classList.remove('active');
                 });
                 
-                // غیرفعال کردن همه تب‌ها
                 document.querySelectorAll('.auth-tab').forEach(tab => {
                     tab.classList.remove('active');
                 });
                 
-                // نمایش تب انتخاب شده
-                document.getElementById(`${tabId}-form`).classList.add('active');
-                document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+                const tabForm = document.getElementById(`${tabId}-form`);
+                const tabElement = document.querySelector(`[data-tab="${tabId}"]`);
+                
+                if (tabForm) tabForm.classList.add('active');
+                if (tabElement) tabElement.classList.add('active');
             }
             
             async handleLogin() {
@@ -2202,7 +2233,6 @@
                     return;
                 }
                 
-                // بررسی انقضای حساب
                 if (user.expiryDate && new Date(user.expiryDate) < new Date()) {
                     user.status = 'expired';
                     this.saveUsers();
@@ -2210,7 +2240,6 @@
                     return;
                 }
                 
-                // به‌روزرسانی اطلاعات ورود
                 user.lastLogin = new Date().toISOString();
                 if (!user.loginLogs) user.loginLogs = [];
                 user.loginLogs.push({
@@ -2244,7 +2273,6 @@
                 const confirmPassword = document.getElementById('register-confirm-password').value;
                 const type = document.getElementById('register-type').value;
                 
-                // اعتبارسنجی
                 if (!fullName || !username || !email || !password) {
                     this.showAlert('لطفا تمام فیلدهای الزامی را پر کنید', 'error', 'register-alert');
                     return;
@@ -2265,7 +2293,6 @@
                     return;
                 }
                 
-                // ایجاد کاربر جدید
                 const newUser = {
                     username: username,
                     password: this.hashPassword(password),
@@ -2290,14 +2317,12 @@
                 
                 this.showAlert('ثبت‌نام شما با موفقیت انجام شد. پس از تأیید مدیر می‌توانید وارد شوید.', 'success', 'register-alert');
                 
-                // پاک کردن فرم
                 document.getElementById('register-fullname').value = '';
                 document.getElementById('register-username').value = '';
                 document.getElementById('register-email').value = '';
                 document.getElementById('register-password').value = '';
                 document.getElementById('register-confirm-password').value = '';
                 
-                // به‌روزرسانی داشبورد
                 this.loadDashboard();
             }
             
@@ -2313,10 +2338,12 @@
             updateUserInfo() {
                 if (!this.currentUser) return;
                 
-                document.getElementById('user-info').textContent = 
-                    `${this.currentUser.fullName} (${this.getRoleName(this.currentUser.role)})`;
+                const userInfo = document.getElementById('user-info');
+                if (userInfo) {
+                    userInfo.textContent = 
+                        `${this.currentUser.fullName} (${this.getRoleName(this.currentUser.role)})`;
+                }
                 
-                // نمایش/مخفی کردن منوهای ادمین
                 const adminElements = document.querySelectorAll('.admin-only');
                 if (this.currentUser.role === 'admin') {
                     adminElements.forEach(el => el.style.display = 'flex');
@@ -2324,7 +2351,6 @@
                     adminElements.forEach(el => el.style.display = 'none');
                 }
                 
-                // بارگذاری اطلاعات پروفایل
                 this.loadProfile();
             }
             
@@ -2342,7 +2368,6 @@
                 
                 const permissions = this.currentUser.permissions;
                 
-                // بررسی دسترسی به بخش‌ها
                 document.querySelectorAll('.nav-btn').forEach(btn => {
                     const screen = btn.getAttribute('data-screen');
                     if (!this.hasAccessToSection(screen)) {
@@ -2350,7 +2375,6 @@
                     }
                 });
                 
-                // بررسی دسترسی به محصولات در برنامه‌ریز
                 this.updateCropPermissions();
             }
             
@@ -2388,10 +2412,8 @@
                     'wheat', 'rice', 'saffron', 'cucumber', 'tomato', 'corn', 'potato'
                 ];
                 
-                // اگر دسترسی به همه محصولات دارد، همه را نمایش بده
                 if (permissions.crops.includes('all')) return;
                 
-                // غیرفعال کردن محصولات بدون دسترسی
                 allCrops.forEach(crop => {
                     if (!permissions.crops.includes(crop)) {
                         const option = cropSelect.querySelector(`option[value="${crop}"]`);
@@ -2403,7 +2425,6 @@
             }
             
             showScreen(screenName) {
-                // به‌روزرسانی دکمه‌های فعال
                 document.querySelectorAll('.nav-btn').forEach(btn => {
                     btn.classList.remove('active');
                 });
@@ -2413,15 +2434,15 @@
                     activeBtn.classList.add('active');
                 }
                 
-                // مخفی کردن همه صفحات
                 document.querySelectorAll('.screen').forEach(screen => {
                     screen.classList.remove('active');
                 });
                 
-                // نمایش صفحه انتخاب شده
-                document.getElementById(`${screenName}-screen`).classList.add('active');
+                const screenElement = document.getElementById(`${screenName}-screen`);
+                if (screenElement) {
+                    screenElement.classList.add('active');
+                }
                 
-                // بارگذاری داده‌های صفحه
                 switch(screenName) {
                     case 'dashboard':
                         this.loadDashboard();
@@ -2441,11 +2462,13 @@
                     case 'history':
                         this.loadHistory();
                         break;
+                    case 'reports':
+                        this.loadReports();
+                        break;
                 }
             }
             
             showPlannerTab(tabId) {
-                // به‌روزرسانی تب‌های فعال
                 document.querySelectorAll('.planner-tab').forEach(tab => {
                     tab.classList.remove('active');
                 });
@@ -2455,25 +2478,21 @@
                     activeTab.classList.add('active');
                 }
                 
-                // مخفی کردن همه محتواها
                 document.querySelectorAll('.planner-content').forEach(content => {
                     content.classList.remove('active');
                 });
                 
-                // نمایش محتوای انتخاب شده
                 const content = document.getElementById(`${tabId}-tab`);
                 if (content) {
                     content.classList.add('active');
                 }
                 
-                // اگر تب نتایج است و محاسبه‌ای وجود ندارد، محاسبه کن
                 if (tabId === 'results' && !this.currentCalculation) {
                     this.calculateResults();
                 }
             }
             
             calculateResults() {
-                // جمع‌آوری داده‌های ورودی
                 const crop = document.getElementById('crop-selection').value;
                 const region = document.getElementById('region-selection').value;
                 const growthStage = document.getElementById('growth-stage').value;
@@ -2484,25 +2503,21 @@
                     return;
                 }
                 
-                // جمع‌آوری داده‌های خاک
                 const soilData = {};
                 document.querySelectorAll('.soil-input').forEach(input => {
                     const key = input.getAttribute('data-element');
                     soilData[key] = parseFloat(input.value) || 0;
                 });
                 
-                // جمع‌آوری داده‌های آب
                 const waterData = {};
                 document.querySelectorAll('.water-input').forEach(input => {
                     const key = input.getAttribute('data-element');
                     waterData[key] = parseFloat(input.value) || 0;
                 });
                 
-                // محاسبه نیازهای غذایی با استفاده از فرمول‌های ذخیره شده
                 const recommendations = {};
                 let totalCost = 0;
                 
-                // محاسبه برای هر عنصر اصلی
                 const elements = ['N', 'P', 'K', 'Ca', 'Mg', 'S'];
                 const cropRequirements = this.formulas.cropRequirements[crop] || this.formulas.cropRequirements.wheat;
                 
@@ -2510,27 +2525,23 @@
                     const baseRequirement = cropRequirements[element];
                     const soilValue = soilData[element.toLowerCase()] || 0;
                     
-                    // اعمال ضرایب
                     const regionFactor = this.formulas.regionFactors[region] || 1.0;
                     const growthFactor = this.formulas.growthFactors[growthStage] || 1.0;
                     
-                    // محاسبه نیاز خالص
                     const adjustedRequirement = baseRequirement * regionFactor * growthFactor;
                     const netRequirement = Math.max(0, adjustedRequirement - soilValue);
                     
-                    // اعمال راندمان جذب
                     let efficiency;
                     switch(element) {
-                        case 'N': efficiency = this.formulas.nitrogen.efficiency / 100; break;
-                        case 'P': efficiency = this.formulas.phosphorus.efficiency / 100; break;
-                        case 'K': efficiency = this.formulas.potassium.efficiency / 100; break;
-                        default: efficiency = 0.6; // 60% برای عناصر دیگر
+                        case 'N': efficiency = (this.formulas.nitrogen?.efficiency || 65) / 100; break;
+                        case 'P': efficiency = (this.formulas.phosphorus?.efficiency || 25) / 100; break;
+                        case 'K': efficiency = (this.formulas.potassium?.efficiency || 70) / 100; break;
+                        default: efficiency = 0.6;
                     }
                     
                     const totalRequirement = (netRequirement / efficiency) * area;
                     
-                    // یافتن قیمت عنصر
-                    const priceElement = this.prices.elements.find(el => 
+                    const priceElement = this.prices.elements?.find(el => 
                         el.symbol.includes(element)
                     );
                     
@@ -2551,16 +2562,14 @@
                     totalCost += elementCost;
                 });
                 
-                // محاسبه عناصر ریزمغذی (ساده‌سازی شده)
                 const micronutrients = ['Fe', 'Mn', 'Zn', 'Cu'];
                 micronutrients.forEach(element => {
                     const soilValue = soilData[element.toLowerCase()] || 0;
-                    const baseRequirement = 0.5; // نیاز پایه کم برای ریزمغذی‌ها
+                    const baseRequirement = 0.5;
                     
-                    // اگر خاک کمبود دارد، اضافه کن
                     if (soilValue < 0.3) {
                         const requirement = baseRequirement * area;
-                        const priceElement = this.prices.elements.find(el => 
+                        const priceElement = this.prices.elements?.find(el => 
                             el.symbol.includes(element)
                         );
                         
@@ -2575,14 +2584,13 @@
                             price: price,
                             cost: elementCost,
                             soilValue: soilValue,
-                            efficiency: 30 // راندمان پایین ریزمغذی‌ها
+                            efficiency: 30
                         };
                         
                         totalCost += elementCost;
                     }
                 });
                 
-                // ذخیره محاسبه جاری
                 this.currentCalculation = {
                     id: Date.now(),
                     date: new Date().toISOString(),
@@ -2604,7 +2612,6 @@
                     }
                 };
                 
-                // نمایش نتایج
                 this.showResults();
             }
             
@@ -2636,7 +2643,6 @@
                     ripening: 'رسیدگی'
                 };
                 
-                // به‌روزرسانی خلاصه
                 const summary = `
                     <div style="background: #F8F9FA; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
                         <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
@@ -2660,11 +2666,13 @@
                     </div>
                 `;
                 
-                document.getElementById('calculation-summary').innerHTML = summary;
+                const summaryElement = document.getElementById('calculation-summary');
+                if (summaryElement) summaryElement.innerHTML = summary;
                 
-                // نمایش نتایج
                 const container = document.getElementById('results-container');
                 const recommendations = this.currentCalculation.recommendations;
+                
+                if (!container) return;
                 
                 if (Object.keys(recommendations).length === 0) {
                     container.innerHTML = `
@@ -2696,11 +2704,11 @@
                     `).join('');
                 }
                 
-                // نمایش هزینه کل
-                document.getElementById('total-cost').textContent = 
-                    this.formatCurrency(this.currentCalculation.totalCost);
+                const totalCostElement = document.getElementById('total-cost');
+                if (totalCostElement) {
+                    totalCostElement.textContent = this.formatCurrency(this.currentCalculation.totalCost);
+                }
                 
-                // نمایش تب نتایج
                 this.showPlannerTab('results');
             }
             
@@ -2718,29 +2726,34 @@
             }
             
             loadDashboard() {
-                // آمار کاربران
                 const activeUsers = Object.values(this.users).filter(user => user.status === 'active').length;
-                const pendingUsers = Object.values(this.users).filter(user => user.status === 'pending').length;
                 
-                document.getElementById('total-users').textContent = activeUsers;
-                document.getElementById('pending-users').textContent = pendingUsers;
-                document.getElementById('total-calculations').textContent = this.calculations.length;
-                document.getElementById('active-crops').textContent = Object.keys(this.formulas.cropRequirements).length;
+                const totalUsersElement = document.getElementById('total-users');
+                const totalCalculationsElement = document.getElementById('total-calculations');
+                const totalSavingsElement = document.getElementById('total-savings');
+                const activeCropsElement = document.getElementById('active-crops');
                 
-                // محاسبه صرفه‌جویی (فرضی)
+                if (totalUsersElement) totalUsersElement.textContent = activeUsers;
+                if (totalCalculationsElement) totalCalculationsElement.textContent = this.calculations.length;
+                if (activeCropsElement) activeCropsElement.textContent = Object.keys(this.formulas.cropRequirements || {}).length;
+                
                 const totalSavings = this.calculations.reduce((sum, calc) => sum + (calc.totalCost * 0.15), 0);
-                document.getElementById('total-savings').textContent = this.formatCurrency(totalSavings);
+                if (totalSavingsElement) totalSavingsElement.textContent = this.formatCurrency(totalSavings);
                 
-                // بارگذاری آخرین محاسبات
                 this.loadRecentCalculations();
-                
-                // بارگذاری کاربران جدید
                 this.loadRecentUsers();
             }
             
             loadRecentCalculations() {
                 const container = document.getElementById('recent-calculations');
-                const recent = this.calculations.slice(0, 5);
+                if (!container) return;
+                
+                let userCalculations = this.calculations;
+                if (this.currentUser?.role !== 'admin') {
+                    userCalculations = this.calculations.filter(calc => calc.user === this.currentUser.username);
+                }
+                
+                const recent = userCalculations.slice(0, 5);
                 
                 if (recent.length === 0) {
                     container.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">هنوز محاسبه‌ای انجام نشده است</p>';
@@ -2774,6 +2787,13 @@
             
             loadRecentUsers() {
                 const container = document.getElementById('recent-users');
+                if (!container) return;
+                
+                if (this.currentUser?.role !== 'admin') {
+                    container.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">فقط مدیر سیستم می‌تواند کاربران را مشاهده کند</p>';
+                    return;
+                }
+                
                 const users = Object.values(this.users)
                     .sort((a, b) => new Date(b.registrationDate) - new Date(a.registrationDate))
                     .slice(0, 5);
@@ -2851,7 +2871,7 @@
                 
                 let html = '';
                 
-                this.prices.elements.forEach(element => {
+                (this.prices.elements || []).forEach(element => {
                     html += `
                         <tr>
                             <td>${element.name}</td>
@@ -2876,7 +2896,6 @@
                 
                 container.innerHTML = html;
                 
-                // بارگذاری تاریخچه قیمت‌ها
                 this.loadPriceHistory();
             }
             
@@ -2884,7 +2903,7 @@
                 const container = document.getElementById('price-history-list');
                 if (!container) return;
                 
-                const history = this.prices.history.slice(0, 10);
+                const history = (this.prices.history || []).slice(0, 10);
                 
                 if (history.length === 0) {
                     container.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">تاریخچه‌ای موجود نیست</p>';
@@ -2910,8 +2929,56 @@
                 container.innerHTML = html;
             }
             
+            loadReports() {
+                const container = document.getElementById('reports-container');
+                if (!container) return;
+                
+                let userReports = this.calculations;
+                if (this.currentUser?.role !== 'admin') {
+                    userReports = this.calculations.filter(calc => calc.user === this.currentUser.username);
+                }
+                
+                if (userReports.length === 0) {
+                    container.innerHTML = `
+                        <i class="fas fa-chart-bar" style="font-size: 48px; margin-bottom: 20px; opacity: 0.3;"></i>
+                        <p>گزارشی برای نمایش وجود ندارد</p>
+                        <p style="margin-top: 10px; font-size: 14px;">برای ایجاد گزارش، ابتدا محاسبه‌ای انجام دهید</p>
+                    `;
+                    return;
+                }
+                
+                const cropNames = {
+                    wheat: 'گندم',
+                    rice: 'برنج',
+                    saffron: 'زعفران',
+                    cucumber: 'خیار',
+                    tomato: 'گوجه فرنگی'
+                };
+                
+                let html = '<table class="table">';
+                html += '<thead><tr><th>تاریخ</th><th>محصول</th><th>منطقه</th><th>هزینه کل</th><th>عملیات</th></tr></thead><tbody>';
+                
+                userReports.forEach(calc => {
+                    html += `
+                        <tr>
+                            <td>${new Date(calc.date).toLocaleDateString('fa-IR')}</td>
+                            <td>${cropNames[calc.crop] || calc.crop}</td>
+                            <td>${calc.region}</td>
+                            <td>${this.formatCurrency(calc.totalCost)}</td>
+                            <td>
+                                <button class="btn btn-sm btn-secondary" onclick="system.viewReport(${calc.id})">
+                                    <i class="fas fa-eye"></i> مشاهده
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            }
+            
             loadFormulasScreen() {
-                // این تابع در loadFormulas() اجرا می‌شود
                 console.log('صفحه فرمول‌ها بارگذاری شد');
             }
             
@@ -2919,7 +2986,6 @@
                 const userSelect = document.getElementById('user-select');
                 if (!userSelect) return;
                 
-                // بارگذاری لیست کاربران
                 let options = '<option value="">یک کاربر انتخاب کنید</option>';
                 Object.values(this.users).forEach(user => {
                     if (user.username !== 'admin') {
@@ -2929,7 +2995,6 @@
                 
                 userSelect.innerHTML = options;
                 
-                // رویداد تغییر کاربر
                 userSelect.addEventListener('change', (e) => {
                     const username = e.target.value;
                     if (username) {
@@ -3007,13 +3072,13 @@
                     ]
                 };
                 
-                return options[type].map(option => `
+                return (options[type] || []).map(option => `
                     <div class="permission-item">
                         <label>
                             <input type="checkbox" 
                                    name="${type}" 
                                    value="${option.value}"
-                                   ${selectedValues.includes('all') || selectedValues.includes(option.value) ? 'checked' : ''}
+                                   ${(selectedValues || []).includes('all') || (selectedValues || []).includes(option.value) ? 'checked' : ''}
                                    ${option.value === 'all' ? 'onchange="system.toggleAllCheckboxes(this, \'' + type + '\')"' : ''}>
                             ${option.label}
                         </label>
@@ -3033,14 +3098,17 @@
             loadProfile() {
                 if (!this.currentUser) return;
                 
-                document.getElementById('profile-fullname').value = this.currentUser.fullName;
-                document.getElementById('profile-username').value = this.currentUser.username;
-                document.getElementById('profile-email').value = this.currentUser.email || '';
-                document.getElementById('profile-phone').value = this.currentUser.phone || '';
-                document.getElementById('profile-role').value = this.getRoleName(this.currentUser.role);
+                const user = this.users[this.currentUser.username];
+                if (!user) return;
                 
-                const expiryDate = this.currentUser.expiryDate ? 
-                    new Date(this.currentUser.expiryDate).toLocaleDateString('fa-IR') : 'نامحدود';
+                document.getElementById('profile-fullname').value = user.fullName;
+                document.getElementById('profile-username').value = user.username;
+                document.getElementById('profile-email').value = user.email || '';
+                document.getElementById('profile-phone').value = user.phone || '';
+                document.getElementById('profile-role').value = this.getRoleName(user.role);
+                
+                const expiryDate = user.expiryDate ? 
+                    new Date(user.expiryDate).toLocaleDateString('fa-IR') : 'نامحدود';
                 document.getElementById('profile-expiry').value = expiryDate;
             }
             
@@ -3066,14 +3134,12 @@
                     
                     await this.saveUsers();
                     
-                    // به‌روزرسانی کاربر جاری
                     this.currentUser.email = user.email;
                     this.currentUser.phone = user.phone;
                     localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
                     
                     this.showAlert('اطلاعات با موفقیت ذخیره شد', 'success');
                     
-                    // پاک کردن فیلدهای رمز عبور
                     document.getElementById('new-password').value = '';
                     document.getElementById('confirm-new-password').value = '';
                 }
@@ -3111,7 +3177,6 @@
                 
                 document.getElementById('user-modal').classList.add('active');
                 
-                // ذخیره با دکمه متفاوت
                 document.getElementById('modal-save-user-btn').onclick = () => this.updateUser(username);
             }
             
@@ -3164,6 +3229,8 @@
             
             async updatePrice(elementId) {
                 const newPriceInput = document.getElementById(`price-${elementId}`);
+                if (!newPriceInput) return;
+                
                 const newPrice = parseInt(newPriceInput.value);
                 
                 if (!newPrice || newPrice < 0) {
@@ -3171,11 +3238,10 @@
                     return;
                 }
                 
-                const element = this.prices.elements.find(el => el.id === elementId);
+                const element = (this.prices.elements || []).find(el => el.id === elementId);
                 if (!element) return;
                 
-                // ذخیره در تاریخچه
-                this.prices.history.unshift({
+                (this.prices.history || []).unshift({
                     date: new Date().toISOString(),
                     element: element.name,
                     oldPrice: element.price,
@@ -3183,7 +3249,6 @@
                     changedBy: this.currentUser.fullName
                 });
                 
-                // به‌روزرسانی قیمت
                 element.price = newPrice;
                 element.lastUpdate = new Date().toISOString();
                 
@@ -3250,7 +3315,6 @@
                 const user = this.users[username];
                 if (!user) return;
                 
-                // جمع‌آوری دسترسی‌های انتخاب شده
                 const crops = Array.from(document.querySelectorAll('input[name="crops"]:checked'))
                     .map(cb => cb.value);
                 
@@ -3262,7 +3326,6 @@
                 
                 const expiryDate = document.getElementById('user-expiry-date').value;
                 
-                // به‌روزرسانی دسترسی‌ها
                 user.permissions = {
                     crops: crops,
                     sections: sections,
@@ -3285,9 +3348,41 @@
                 const container = document.getElementById('history-table-body');
                 if (!container) return;
                 
+                const searchTerm = document.getElementById('history-search').value.toLowerCase();
+                const filter = document.getElementById('history-filter').value;
+                
+                let filteredCalculations = this.calculations;
+                
+                if (this.currentUser?.role !== 'admin') {
+                    filteredCalculations = this.calculations.filter(calc => calc.user === this.currentUser.username);
+                }
+                
+                if (searchTerm) {
+                    filteredCalculations = filteredCalculations.filter(calc => 
+                        calc.crop.toLowerCase().includes(searchTerm) ||
+                        calc.region.toLowerCase().includes(searchTerm)
+                    );
+                }
+                
+                if (filter === 'my-history' && this.currentUser) {
+                    filteredCalculations = filteredCalculations.filter(calc => calc.user === this.currentUser.username);
+                } else if (filter === 'last-week') {
+                    const lastWeek = new Date();
+                    lastWeek.setDate(lastWeek.getDate() - 7);
+                    filteredCalculations = filteredCalculations.filter(calc => new Date(calc.date) >= lastWeek);
+                } else if (filter === 'last-month') {
+                    const lastMonth = new Date();
+                    lastMonth.setMonth(lastMonth.getMonth() - 1);
+                    filteredCalculations = filteredCalculations.filter(calc => new Date(calc.date) >= lastMonth);
+                } else if (filter === 'last-year') {
+                    const lastYear = new Date();
+                    lastYear.setFullYear(lastYear.getFullYear() - 1);
+                    filteredCalculations = filteredCalculations.filter(calc => new Date(calc.date) >= lastYear);
+                }
+                
                 const startIndex = (this.currentPage - 1) * this.itemsPerPage;
                 const endIndex = startIndex + this.itemsPerPage;
-                const pageItems = this.calculations.slice(startIndex, endIndex);
+                const pageItems = filteredCalculations.slice(startIndex, endIndex);
                 
                 const cropNames = {
                     wheat: 'گندم',
@@ -3306,6 +3401,7 @@
                         <tr>
                             <td>${new Date(calc.date).toLocaleDateString('fa-IR')}</td>
                             <td>${cropNames[calc.crop] || calc.crop}</td>
+                            <td>${calc.region}</td>
                             <td>${calc.area} هکتار</td>
                             <td>${this.formatCurrency(calc.totalCost)}</td>
                             <td>
@@ -3317,11 +3413,14 @@
                     `;
                 });
                 
+                if (html === '') {
+                    html = `<tr><td colspan="6" style="text-align: center; color: var(--text-secondary);">موردی یافت نشد</td></tr>`;
+                }
+                
                 container.innerHTML = html;
                 
-                // به‌روزرسانی اطلاعات صفحه
-                const totalPages = Math.ceil(this.calculations.length / this.itemsPerPage);
-                document.getElementById('page-info').textContent = `صفحه ${this.currentPage} از ${totalPages}`;
+                const totalPages = Math.ceil(filteredCalculations.length / this.itemsPerPage);
+                document.getElementById('page-info').textContent = `صفحه ${this.currentPage} از ${totalPages || 1}`;
                 
                 document.getElementById('prev-page').disabled = this.currentPage <= 1;
                 document.getElementById('next-page').disabled = this.currentPage >= totalPages;
@@ -3330,6 +3429,11 @@
             viewReport(calculationId) {
                 const calculation = this.calculations.find(c => c.id === calculationId);
                 if (!calculation) return;
+                
+                if (this.currentUser?.role !== 'admin' && calculation.user !== this.currentUser.username) {
+                    this.showAlert('شما دسترسی به این گزارش را ندارید', 'error');
+                    return;
+                }
                 
                 const cropNames = {
                     wheat: 'گندم',
@@ -3384,7 +3488,7 @@
                         <tbody>
                 `;
                 
-                Object.values(calculation.recommendations).forEach(rec => {
+                Object.values(calculation.recommendations || {}).forEach(rec => {
                     reportContent += `
                         <tr style="border-bottom: 1px solid #eee;">
                             <td style="padding: 10px;">${rec.name} (${rec.symbol})</td>
@@ -3433,7 +3537,8 @@
                 
                 this.viewReport(this.currentCalculation.id);
                 setTimeout(() => {
-                    document.getElementById('print-a4-btn').click();
+                    const printBtn = document.getElementById('print-a4-btn');
+                    if (printBtn) printBtn.click();
                 }, 500);
             }
             
@@ -3487,7 +3592,6 @@
             
             // توابع کمکی
             hashPassword(password) {
-                // در نسخه واقعی از الگوریتم‌های ایمن‌تر استفاده شود
                 return btoa(password);
             }
             
@@ -3512,9 +3616,7 @@
                     'Fe': 'آهن',
                     'Mn': 'منگنز',
                     'Zn': 'روی',
-                    'Cu': 'مس',
-                    'B': 'بور',
-                    'Mo': 'مولیبدن'
+                    'Cu': 'مس'
                 };
                 return elements[symbol] || symbol;
             }
@@ -3566,7 +3668,7 @@
         // راه‌اندازی سیستم
         const system = new NutritionManagementSystem();
         
-        // قرار دادن سیستم در دسترس جهانی برای توابع onclick
+        // قرار دادن سیستم در دسترس جهانی
         window.system = system;
     </script>
 </body>
