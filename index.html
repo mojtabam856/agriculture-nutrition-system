@@ -173,9 +173,16 @@
                     'user': { password: 'User@2024', role: 'user' }
                 };
                 
-                this.initialize();
+                this.initialize();    // bind کردن توابع
+    this.createDefaultFormulas = this.createDefaultFormulas.bind(this);
+    this.setupPlannerInputs = this.setupPlannerInputs.bind(this);
+    this.updateUserInfo = this.updateUserInfo.bind(this);
+    this.loadDashboard = this.loadDashboard.bind(this);
+    this.showScreen = this.showScreen.bind(this);
+    this.formatCurrency = this.formatCurrency.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
             }
-            
+            </script>
             initialize() {
                 // بررسی CDNها
                 this.checkCDNs();
