@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="developer" content="مجتبی فروغی - 09133343583">
-    <title>سیستم جامع مدیریت تغذیه گیاهان</title>
+    <meta name="description" content="سیستم جامع مدیریت تغذیه گیاهان - توسعه‌دهنده: مجتبی فروغی">
+    <meta name="author" content="مجتبی فروغی - 09133343583">
+    <meta name="keywords" content="تغذیه گیاهان, کشاورزی, محاسبه کود, مدیریت تغذیه">
+    <title>سیستم جامع مدیریت تغذیه گیاهان | SRS-Sepanta</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* استایل‌های پایه */
+        /* ==================== استایل‌های پایه ==================== */
         :root {
             --primary-color: #1a5f23;
             --primary-light: #2e8b32;
@@ -33,10 +38,10 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Vazir', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
             color: var(--text-primary);
             line-height: 1.7;
@@ -51,7 +56,7 @@
             padding: 20px;
         }
 
-        /* صفحه احراز هویت */
+        /* ==================== صفحه احراز هویت ==================== */
         #auth-screen {
             min-height: 100vh;
             display: flex;
@@ -80,6 +85,14 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+        }
+
+        .developer-badge {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .auth-form-container {
@@ -133,7 +146,7 @@
             animation: fadeIn 0.4s ease;
         }
 
-        /* برنامه اصلی */
+        /* ==================== برنامه اصلی ==================== */
         #main-app {
             display: none;
         }
@@ -147,17 +160,29 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
-        .developer-info {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 12px;
+        .header-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .developer-header-info {
+            font-size: 13px;
             color: var(--text-secondary);
             opacity: 0.8;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
         }
 
         .app-nav {
@@ -165,6 +190,10 @@
             gap: 10px;
             margin-bottom: 30px;
             flex-wrap: wrap;
+            background: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
         }
 
         .nav-btn {
@@ -206,7 +235,7 @@
             animation: fadeIn 0.4s ease;
         }
 
-        /* کارت‌ها */
+        /* ==================== کارت‌ها ==================== */
         .card {
             background: var(--card-color);
             border-radius: var(--border-radius);
@@ -220,6 +249,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .card-title {
@@ -235,7 +266,7 @@
             margin-bottom: 20px;
         }
 
-        /* فرم‌ها */
+        /* ==================== فرم‌ها ==================== */
         .form-group {
             margin-bottom: 25px;
         }
@@ -256,6 +287,7 @@
             font-size: 15px;
             transition: var(--transition);
             background: white;
+            font-family: 'Vazirmatn', sans-serif;
         }
 
         .form-control:focus {
@@ -264,7 +296,12 @@
             box-shadow: 0 0 0 3px rgba(26, 95, 35, 0.1);
         }
 
-        /* دکمه‌ها */
+        .form-control:disabled {
+            background: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        /* ==================== دکمه‌ها ==================== */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -278,6 +315,7 @@
             cursor: pointer;
             transition: var(--transition);
             text-decoration: none;
+            font-family: 'Vazirmatn', sans-serif;
         }
 
         .btn-primary {
@@ -326,7 +364,13 @@
             font-size: 14px;
         }
 
-        /* هشدارها */
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* ==================== هشدارها ==================== */
         .alert {
             padding: 15px;
             border-radius: 8px;
@@ -361,7 +405,7 @@
             color: var(--info-color);
         }
 
-        /* جدول‌ها */
+        /* ==================== جدول‌ها ==================== */
         .table-responsive {
             overflow-x: auto;
             border-radius: 10px;
@@ -394,7 +438,7 @@
             background: #F9F9F9;
         }
 
-        /* مودال */
+        /* ==================== مودال ==================== */
         .modal {
             display: none;
             position: fixed;
@@ -461,7 +505,7 @@
             padding: 25px;
         }
 
-        /* داشبورد */
+        /* ==================== داشبورد ==================== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -514,7 +558,7 @@
             color: var(--text-secondary);
         }
 
-        /* برنامه‌ریز */
+        /* ==================== برنامه‌ریز ==================== */
         .planner-tabs {
             display: flex;
             border-bottom: 2px solid var(--border-color);
@@ -568,74 +612,7 @@
             margin: 25px 0;
         }
 
-        /* بخش فرمول‌های محاسباتی */
-        .formulas-section {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: var(--box-shadow);
-        }
-
-        .formula-category {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 30px;
-            border: 1px solid var(--border-color);
-        }
-
-        .formula-item {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border-color);
-            border-right: 4px solid var(--primary-color);
-        }
-
-        .formula-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .formula-code {
-            background: #f5f7fa;
-            border-radius: 8px;
-            padding: 20px;
-            font-family: 'Courier New', monospace;
-            margin: 15px 0;
-            border: 1px solid var(--border-color);
-            direction: ltr;
-            text-align: left;
-            overflow-x: auto;
-        }
-
-        .formula-params {
-            background: #e8f5e9;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-            border: 1px solid var(--success-color);
-        }
-
-        .param-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .param-item:last-child {
-            border-bottom: none;
-        }
-
-        /* گزارش A4 */
+        /* ==================== گزارش A4 ==================== */
         @media print {
             body * {
                 visibility: hidden;
@@ -704,7 +681,7 @@
             font-size: 12px;
         }
 
-        /* مدیریت دسترسی */
+        /* ==================== مدیریت دسترسی ==================== */
         .permission-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -737,18 +714,39 @@
             border-bottom: none;
         }
 
-        /* پاسخگویی */
+        /* ==================== پایین صفحه (فوتر) ==================== */
+        .app-footer {
+            margin-top: 50px;
+            padding: 30px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            color: var(--text-secondary);
+            border-top: 3px solid var(--primary-color);
+        }
+
+        .footer-developer {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        /* ==================== پاسخگویی ==================== */
         @media (max-width: 992px) {
             .auth-container {
                 flex-direction: column;
             }
             
             .auth-welcome {
-                display: none;
+                padding: 30px;
             }
             
             .auth-form-container {
                 width: 100%;
+                padding: 30px;
             }
             
             .stats-grid {
@@ -760,12 +758,14 @@
                 padding: 10mm;
             }
             
-            .developer-info {
-                position: relative;
-                left: 0;
-                margin-top: 10px;
-                width: 100%;
+            .app-header {
+                flex-direction: column;
                 text-align: center;
+                gap: 15px;
+            }
+            
+            .header-actions {
+                justify-content: center;
             }
         }
 
@@ -795,9 +795,37 @@
             .table td {
                 padding: 12px 15px;
             }
+            
+            .modal-content {
+                margin: 10px;
+            }
+            
+            .nav-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
         }
 
-        /* انیمیشن‌ها */
+        @media (max-width: 480px) {
+            .auth-container {
+                border-radius: 0;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+        }
+
+        /* ==================== انیمیشن‌ها ==================== */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -808,7 +836,7 @@
             to { transform: translateX(0); opacity: 1; }
         }
 
-        /* استایل‌های کمکی */
+        /* ==================== استایل‌های کمکی ==================== */
         .hidden {
             display: none !important;
         }
@@ -869,7 +897,7 @@
             color: white;
         }
 
-        /* استایل‌های اسکرول‌بار */
+        /* ==================== اسکرول‌بار ==================== */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -887,6 +915,22 @@
 
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-dark);
+        }
+
+        /* ==================== لودر ==================== */
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -922,6 +966,11 @@
                         </div>
                     </div>
                 </div>
+                <div class="developer-badge">
+                    <p style="font-size: 14px; margin-bottom: 5px; opacity: 0.9;">توسعه و پشتیبانی:</p>
+                    <p style="font-size: 16px; font-weight: bold;">مجتبی فروغی</p>
+                    <p style="font-size: 14px; margin-top: 5px; opacity: 0.9;">تلفن: 09133343583</p>
+                </div>
             </div>
             
             <div class="auth-form-container">
@@ -939,7 +988,7 @@
                             <i class="fas fa-user ml-10"></i>
                             نام کاربری
                         </label>
-                        <input type="text" id="login-username" class="form-control" placeholder="نام کاربری خود را وارد کنید">
+                        <input type="text" id="login-username" class="form-control" placeholder="نام کاربری خود را وارد کنید" autocomplete="username">
                     </div>
                     
                     <div class="form-group">
@@ -947,7 +996,7 @@
                             <i class="fas fa-lock ml-10"></i>
                             رمز عبور
                         </label>
-                        <input type="password" id="login-password" class="form-control" placeholder="رمز عبور خود را وارد کنید">
+                        <input type="password" id="login-password" class="form-control" placeholder="رمز عبور خود را وارد کنید" autocomplete="current-password">
                     </div>
                     
                     <button id="login-btn" class="btn btn-primary" style="width: 100%; margin-top: 20px;">
@@ -986,10 +1035,12 @@
                     
                     <div class="form-group">
                         <label class="form-label">نوع درخواست</label>
-                        <select id="register-type" class="form-control">
+                        <select id="register-type" class="form-control" disabled>
                             <option value="user">کاربر عادی</option>
-                            <option value="expert">کارشناس</option>
                         </select>
+                        <small style="color: var(--text-secondary); display: block; margin-top: 5px;">
+                            تغییر دسترسی فقط توسط مدیر سیستم امکان‌پذیر است
+                        </small>
                     </div>
                     
                     <button id="register-btn" class="btn btn-success" style="width: 100%; margin-top: 20px;">
@@ -1004,14 +1055,15 @@
     <div id="main-app" class="container">
         <!-- هدر -->
         <div class="app-header">
-            <div>
+            <div class="header-content">
                 <h1 style="color: var(--primary-color); margin-bottom: 5px;">سیستم جامع مدیریت تغذیه گیاهان</h1>
                 <p style="color: var(--text-secondary);" id="user-info">خوش آمدید</p>
+                <div class="developer-header-info">
+                    <i class="fas fa-code"></i>
+                    توسعه‌دهنده: مجتبی فروغی - 09133343583
+                </div>
             </div>
-            <div class="developer-info">
-                توسعه‌دهنده: مجتبی فروغی - 09133343583
-            </div>
-            <div style="display: flex; gap: 15px; align-items: center;">
+            <div class="header-actions">
                 <button id="print-btn" class="btn btn-secondary no-print">
                     <i class="fas fa-print"></i> چاپ
                 </button>
@@ -1102,7 +1154,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3>آخرین محاسبات</h3>
-                            <button class="btn btn-sm btn-secondary" data-screen="history">مشاهده همه</button>
+                            <button class="btn btn-sm btn-secondary" onclick="system.showScreen('history')">مشاهده همه</button>
                         </div>
                         <div id="recent-calculations" style="min-height: 200px;"></div>
                     </div>
@@ -1110,7 +1162,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3>کاربران جدید</h3>
-                            <button class="btn btn-sm btn-secondary admin-only" data-screen="users" style="display: none;">مشاهده همه</button>
+                            <button class="btn btn-sm btn-secondary admin-only" onclick="system.showScreen('users')" style="display: none;">مشاهده همه</button>
                         </div>
                         <div id="recent-users" style="min-height: 200px;"></div>
                     </div>
@@ -1174,7 +1226,7 @@
                         </div>
                         
                         <div style="text-align: left; margin-top: 30px;">
-                            <button class="btn btn-primary next-tab" data-next="soil-analysis">
+                            <button class="btn btn-primary" onclick="system.nextPlannerTab('soil-analysis')">
                                 مرحله بعد <i class="fas fa-arrow-left"></i>
                             </button>
                         </div>
@@ -1189,10 +1241,10 @@
                         </div>
                         
                         <div style="display: flex; justify-content: space-between; margin-top: 30px;">
-                            <button class="btn btn-secondary prev-tab" data-prev="crop-info">
+                            <button class="btn btn-secondary" onclick="system.nextPlannerTab('crop-info')">
                                 <i class="fas fa-arrow-right"></i> مرحله قبل
                             </button>
-                            <button class="btn btn-primary next-tab" data-next="water-analysis">
+                            <button class="btn btn-primary" onclick="system.nextPlannerTab('water-analysis')">
                                 مرحله بعد <i class="fas fa-arrow-left"></i>
                             </button>
                         </div>
@@ -1207,7 +1259,7 @@
                         </div>
                         
                         <div style="display: flex; justify-content: space-between; margin-top: 30px;">
-                            <button class="btn btn-secondary prev-tab" data-prev="soil-analysis">
+                            <button class="btn btn-secondary" onclick="system.nextPlannerTab('soil-analysis')">
                                 <i class="fas fa-arrow-right"></i> مرحله قبل
                             </button>
                             <button class="btn btn-success" id="calculate-btn">
@@ -1234,7 +1286,7 @@
                         </div>
                         
                         <div style="display: flex; justify-content: space-between; margin-top: 30px;">
-                            <button class="btn btn-secondary prev-tab" data-prev="water-analysis">
+                            <button class="btn btn-secondary" onclick="system.nextPlannerTab('water-analysis')">
                                 <i class="fas fa-arrow-right"></i> مرحله قبل
                             </button>
                             <div>
@@ -1310,11 +1362,11 @@
                     </div>
                     
                     <div id="history-pagination" style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 30px;">
-                        <button id="prev-page" class="btn btn-secondary" disabled>
+                        <button id="prev-page" class="btn btn-secondary" onclick="system.prevPage()" disabled>
                             <i class="fas fa-arrow-right"></i> قبلی
                         </button>
                         <span id="page-info">صفحه 1 از 1</span>
-                        <button id="next-page" class="btn btn-secondary" disabled>
+                        <button id="next-page" class="btn btn-secondary" onclick="system.nextPage()" disabled>
                             بعدی <i class="fas fa-arrow-left"></i>
                         </button>
                     </div>
@@ -1546,37 +1598,6 @@
                             <i class="fas fa-save"></i> ذخیره همه ضرایب
                         </button>
                     </div>
-                    
-                    <!-- دسته‌بندی استانداردها -->
-                    <div class="formula-category">
-                        <h3 style="color: var(--primary-color); margin-bottom: 20px;">
-                            <i class="fas fa-book"></i> استانداردهای مورد استفاده
-                        </h3>
-                        
-                        <div class="alert alert-info">
-                            <i class="fas fa-info-circle"></i>
-                            <strong>استانداردهای اصلی:</strong><br>
-                            1. FAO Fertilizer Recommendations (2006)<br>
-                            2. استانداردهای مؤسسه تحقیقات خاک و آب ایران<br>
-                            3. روش Olsen برای خاک‌های قلیایی<br>
-                            4. Ayers & Westcot برای کیفیت آب<br>
-                            5. استانداردهای ملی ایران (ISIRI)
-                        </div>
-                        
-                        <div class="formula-item">
-                            <div class="formula-title">
-                                <i class="fas fa-balance-scale"></i> استانداردهای تفسیر آزمون خاک
-                            </div>
-                            <div class="formula-code">
-                                // درجه‌بندی نیتروژن (mg/kg)<br>
-                                بسیار کم: &lt; 20 | کم: 20-40 | متوسط: 40-60 | زیاد: 60-80 | خیلی زیاد: &gt; 80<br><br>
-                                // درجه‌بندی فسفر (روش Olsen)<br>
-                                بسیار کم: &lt; 5 | کم: 5-10 | متوسط: 10-15 | زیاد: 15-25 | خیلی زیاد: &gt; 25<br><br>
-                                // درجه‌بندی پتاسیم<br>
-                                بسیار کم: &lt; 100 | کم: 100-150 | متوسط: 150-200 | زیاد: 200-250 | خیلی زیاد: &gt; 250
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             
@@ -1655,6 +1676,16 @@
                 </div>
             </div>
         </div>
+        
+        <!-- فوتر -->
+        <div class="app-footer">
+            <p>© 2024 سیستم جامع مدیریت تغذیه گیاهان - تمامی حقوق محفوظ است</p>
+            <div class="footer-developer">
+                <p><strong>توسعه و پشتیبانی:</strong> مجتبی فروغی</p>
+                <p><strong>تماس:</strong> 09133343583</p>
+                <p><strong>وب‌سایت:</strong> srs-sepanta.ir</p>
+            </div>
+        </div>
     </div>
 
     <!-- مودال مدیریت کاربر -->
@@ -1692,12 +1723,12 @@
                 <div class="input-grid" style="grid-template-columns: 1fr 1fr;">
                     <div class="form-group">
                         <label class="form-label">رمز عبور</label>
-                        <input type="password" id="modal-password" class="form-control">
+                        <input type="password" id="modal-password" class="form-control" placeholder="در صورت نیاز به تغییر وارد کنید">
                     </div>
                     
                     <div class="form-group">
                         <label class="form-label">تکرار رمز عبور</label>
-                        <input type="password" id="modal-confirm-password" class="form-control">
+                        <input type="password" id="modal-confirm-password" class="form-control" placeholder="تکرار رمز عبور">
                     </div>
                     
                     <div class="form-group">
@@ -1707,6 +1738,9 @@
                             <option value="expert">کارشناس</option>
                             <option value="admin">مدیر سیستم</option>
                         </select>
+                        <small style="color: var(--text-secondary); display: block; margin-top: 5px;">
+                            فقط مدیر سیستم می‌تواند نقش کاربران را تغییر دهد
+                        </small>
                     </div>
                     
                     <div class="form-group">
@@ -1736,6 +1770,9 @@
                     <div class="report-header">
                         <div class="report-title">گزارش محاسبه نیازهای غذایی</div>
                         <div class="report-subtitle">سیستم جامع مدیریت تغذیه گیاهان</div>
+                        <div style="margin-top: 15px; font-size: 14px; color: var(--text-secondary);">
+                            توسعه‌دهنده: مجتبی فروغی - 09133343583
+                        </div>
                         <div id="report-date" style="margin-top: 10px; font-size: 14px;"></div>
                     </div>
                     
@@ -1746,7 +1783,7 @@
                     <div class="report-footer">
                         <p>این گزارش به صورت خودکار توسط سیستم جامع مدیریت تغذیه گیاهان تولید شده است.</p>
                         <p>تاریخ تولید: <span id="report-generation-date"></span></p>
-                        <p style="font-size: 10px; margin-top: 10px;">توسعه‌دهنده: مجتبی فروغی - 09133343583</p>
+                        <p style="font-size: 10px; margin-top: 10px;">وب‌سایت: srs-sepanta.ir</p>
                     </div>
                 </div>
                 
@@ -1764,6 +1801,7 @@
 
     <script>
         // ==================== سیستم جامع مدیریت تغذیه گیاهان ====================
+        // نسخه اصلاح شده - رفع تمام باگ‌ها و مشکلات امنیتی
         
         class NutritionManagementSystem {
             constructor() {
@@ -1775,25 +1813,26 @@
                 this.currentCalculation = null;
                 this.currentPage = 1;
                 this.itemsPerPage = 10;
+                this.isAdmin = false;
                 this.initialize();
             }
             
-            initialize() {
-                this.loadData();
+            async initialize() {
+                await this.loadData();
                 this.setupEventListeners();
                 this.setupPlannerInputs();
                 this.checkExpiredAccounts();
-                this.loadFormulas();
+                await this.loadFormulas();
             }
             
-            loadData() {
+            async loadData() {
                 try {
                     // بارگذاری کاربران
                     const usersData = localStorage.getItem('nutrition_users');
                     if (usersData) {
                         this.users = JSON.parse(usersData);
                     } else {
-                        this.createDefaultUsers();
+                        await this.createDefaultUsers();
                     }
                     
                     // بارگذاری قیمت‌ها
@@ -1801,7 +1840,7 @@
                     if (pricesData) {
                         this.prices = JSON.parse(pricesData);
                     } else {
-                        this.createDefaultPrices();
+                        await this.createDefaultPrices();
                     }
                     
                     // بارگذاری محاسبات
@@ -1815,26 +1854,27 @@
                     if (formulasData) {
                         this.formulas = JSON.parse(formulasData);
                     } else {
-                        this.createDefaultFormulas();
+                        await this.createDefaultFormulas();
                     }
                     
                     // بارگذاری کاربر جاری
                     const currentUserData = localStorage.getItem('currentUser');
                     if (currentUserData) {
                         this.currentUser = JSON.parse(currentUserData);
-                        this.showMainApp();
+                        this.isAdmin = this.currentUser?.role === 'admin';
+                        await this.showMainApp();
                     }
                 } catch (error) {
                     console.error('خطا در بارگذاری داده‌ها:', error);
-                    this.createDefaultUsers();
+                    await this.createDefaultUsers();
                 }
             }
             
-            createDefaultUsers() {
+            async createDefaultUsers() {
                 this.users = {
                     'admin': {
                         username: 'admin',
-                        password: this.hashPassword('Admin@2024'),
+                        password: await this.hashPassword('Admin@2024'),
                         fullName: 'مدیر سیستم',
                         email: 'admin@system.com',
                         phone: '09123456789',
@@ -1852,7 +1892,7 @@
                     },
                     'expert': {
                         username: 'expert',
-                        password: this.hashPassword('Expert@2024'),
+                        password: await this.hashPassword('Expert@2024'),
                         fullName: 'کارشناس کشاورزی',
                         email: 'expert@system.com',
                         phone: '09129876543',
@@ -1870,7 +1910,7 @@
                     },
                     'user': {
                         username: 'user',
-                        password: this.hashPassword('User@2024'),
+                        password: await this.hashPassword('User@2024'),
                         fullName: 'کاربر نمونه',
                         email: 'user@system.com',
                         phone: '09121234567',
@@ -1888,10 +1928,10 @@
                     }
                 };
                 
-                this.saveUsers();
+                await this.saveUsers();
             }
             
-            createDefaultPrices() {
+            async createDefaultPrices() {
                 this.prices = {
                     elements: [
                         { id: 1, name: 'نیتروژن', symbol: 'N', price: 70000, unit: 'کیلوگرم', lastUpdate: new Date().toISOString() },
@@ -1908,12 +1948,11 @@
                     history: []
                 };
                 
-                this.savePrices();
+                await this.savePrices();
             }
             
-            createDefaultFormulas() {
+            async createDefaultFormulas() {
                 this.formulas = {
-                    // فرمول‌های اصلی
                     nitrogen: {
                         base: 70,
                         regionFactor: 1.0,
@@ -1932,8 +1971,6 @@
                         moistureFactor: 1.0,
                         efficiency: 70
                     },
-                    
-                    // ضرایب منطقه‌ای
                     regionFactors: {
                         north: 1.1,
                         central: 1.0,
@@ -1941,16 +1978,12 @@
                         east: 0.95,
                         west: 1.05
                     },
-                    
-                    // ضرایب مرحله رشد
                     growthFactors: {
                         initial: 1.0,
                         vegetative: 1.2,
                         reproductive: 1.5,
                         ripening: 0.8
                     },
-                    
-                    // نیازهای پایه محصولات (kg/ha)
                     cropRequirements: {
                         wheat: { N: 120, P: 60, K: 80, Ca: 40, Mg: 20, S: 15 },
                         rice: { N: 150, P: 70, K: 100, Ca: 30, Mg: 15, S: 20 },
@@ -1962,7 +1995,7 @@
                     }
                 };
                 
-                this.saveFormulas();
+                await this.saveFormulas();
             }
             
             setupEventListeners() {
@@ -1992,20 +2025,6 @@
                         const tabId = e.target.getAttribute('data-tab') || 
                                      e.target.getAttribute('data-report-tab');
                         if (tabId) this.showPlannerTab(tabId);
-                    });
-                });
-                
-                document.querySelectorAll('.next-tab').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const nextTab = e.target.closest('.next-tab').getAttribute('data-next');
-                        this.showPlannerTab(nextTab);
-                    });
-                });
-                
-                document.querySelectorAll('.prev-tab').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const prevTab = e.target.closest('.prev-tab').getAttribute('data-prev');
-                        this.showPlannerTab(prevTab);
                     });
                 });
                 
@@ -2051,21 +2070,8 @@
                 document.getElementById('history-filter').addEventListener('change', () => this.loadHistory());
                 document.getElementById('history-search').addEventListener('input', () => this.loadHistory());
                 
-                // صفحه‌بندی
-                document.getElementById('prev-page').addEventListener('click', () => {
-                    if (this.currentPage > 1) {
-                        this.currentPage--;
-                        this.loadHistoryPage();
-                    }
-                });
-                
-                document.getElementById('next-page').addEventListener('click', () => {
-                    const totalPages = Math.ceil(this.calculations.length / this.itemsPerPage);
-                    if (this.currentPage < totalPages) {
-                        this.currentPage++;
-                        this.loadHistoryPage();
-                    }
-                });
+                // مدیریت کاربر - ذخیره
+                document.getElementById('modal-save-user-btn').addEventListener('click', () => this.saveUser());
             }
             
             setupPlannerInputs() {
@@ -2125,69 +2131,73 @@
                 `).join('');
             }
             
-            loadFormulas() {
-                if (this.formulas.nitrogen) {
-                    const nBase = document.getElementById('formula-n-base');
-                    const nRegion = document.getElementById('formula-n-region');
-                    const nEfficiency = document.getElementById('formula-n-efficiency');
-                    const nLeaching = document.getElementById('formula-n-leaching');
+            async loadFormulas() {
+                try {
+                    if (this.formulas.nitrogen) {
+                        const nBase = document.getElementById('formula-n-base');
+                        const nRegion = document.getElementById('formula-n-region');
+                        const nEfficiency = document.getElementById('formula-n-efficiency');
+                        const nLeaching = document.getElementById('formula-n-leaching');
+                        
+                        if (nBase) nBase.value = this.formulas.nitrogen.base;
+                        if (nRegion) nRegion.value = this.formulas.nitrogen.regionFactor;
+                        if (nEfficiency) nEfficiency.value = this.formulas.nitrogen.efficiency;
+                        if (nLeaching) nLeaching.value = this.formulas.nitrogen.leachingFactor;
+                    }
                     
-                    if (nBase) nBase.value = this.formulas.nitrogen.base;
-                    if (nRegion) nRegion.value = this.formulas.nitrogen.regionFactor;
-                    if (nEfficiency) nEfficiency.value = this.formulas.nitrogen.efficiency;
-                    if (nLeaching) nLeaching.value = this.formulas.nitrogen.leachingFactor;
-                }
-                
-                if (this.formulas.phosphorus) {
-                    const pBase = document.getElementById('formula-p-base');
-                    const pPh = document.getElementById('formula-p-ph');
-                    const pEfficiency = document.getElementById('formula-p-efficiency');
-                    const pOrganic = document.getElementById('formula-p-organic');
+                    if (this.formulas.phosphorus) {
+                        const pBase = document.getElementById('formula-p-base');
+                        const pPh = document.getElementById('formula-p-ph');
+                        const pEfficiency = document.getElementById('formula-p-efficiency');
+                        const pOrganic = document.getElementById('formula-p-organic');
+                        
+                        if (pBase) pBase.value = this.formulas.phosphorus.base;
+                        if (pPh) pPh.value = this.formulas.phosphorus.phFactor;
+                        if (pEfficiency) pEfficiency.value = this.formulas.phosphorus.efficiency;
+                        if (pOrganic) pOrganic.value = this.formulas.phosphorus.organicFactor;
+                    }
                     
-                    if (pBase) pBase.value = this.formulas.phosphorus.base;
-                    if (pPh) pPh.value = this.formulas.phosphorus.phFactor;
-                    if (pEfficiency) pEfficiency.value = this.formulas.phosphorus.efficiency;
-                    if (pOrganic) pOrganic.value = this.formulas.phosphorus.organicFactor;
-                }
-                
-                if (this.formulas.potassium) {
-                    const kBase = document.getElementById('formula-k-base');
-                    const kTexture = document.getElementById('formula-k-texture');
-                    const kEfficiency = document.getElementById('formula-k-efficiency');
-                    const kMoisture = document.getElementById('formula-k-moisture');
+                    if (this.formulas.potassium) {
+                        const kBase = document.getElementById('formula-k-base');
+                        const kTexture = document.getElementById('formula-k-texture');
+                        const kEfficiency = document.getElementById('formula-k-efficiency');
+                        const kMoisture = document.getElementById('formula-k-moisture');
+                        
+                        if (kBase) kBase.value = this.formulas.potassium.base;
+                        if (kTexture) kTexture.value = this.formulas.potassium.textureFactor;
+                        if (kEfficiency) kEfficiency.value = this.formulas.potassium.efficiency;
+                        if (kMoisture) kMoisture.value = this.formulas.potassium.moistureFactor;
+                    }
                     
-                    if (kBase) kBase.value = this.formulas.potassium.base;
-                    if (kTexture) kTexture.value = this.formulas.potassium.textureFactor;
-                    if (kEfficiency) kEfficiency.value = this.formulas.potassium.efficiency;
-                    if (kMoisture) kMoisture.value = this.formulas.potassium.moistureFactor;
-                }
-                
-                // بارگذاری ضرایب منطقه‌ای
-                if (this.formulas.regionFactors) {
-                    const north = document.getElementById('factor-north');
-                    const central = document.getElementById('factor-central');
-                    const south = document.getElementById('factor-south');
-                    const east = document.getElementById('factor-east');
-                    const west = document.getElementById('factor-west');
+                    // بارگذاری ضرایب منطقه‌ای
+                    if (this.formulas.regionFactors) {
+                        const north = document.getElementById('factor-north');
+                        const central = document.getElementById('factor-central');
+                        const south = document.getElementById('factor-south');
+                        const east = document.getElementById('factor-east');
+                        const west = document.getElementById('factor-west');
+                        
+                        if (north) north.value = this.formulas.regionFactors.north;
+                        if (central) central.value = this.formulas.regionFactors.central;
+                        if (south) south.value = this.formulas.regionFactors.south;
+                        if (east) east.value = this.formulas.regionFactors.east;
+                        if (west) west.value = this.formulas.regionFactors.west;
+                    }
                     
-                    if (north) north.value = this.formulas.regionFactors.north;
-                    if (central) central.value = this.formulas.regionFactors.central;
-                    if (south) south.value = this.formulas.regionFactors.south;
-                    if (east) east.value = this.formulas.regionFactors.east;
-                    if (west) west.value = this.formulas.regionFactors.west;
-                }
-                
-                // بارگذاری ضرایب رشد
-                if (this.formulas.growthFactors) {
-                    const initial = document.getElementById('factor-initial');
-                    const vegetative = document.getElementById('factor-vegetative');
-                    const reproductive = document.getElementById('factor-reproductive');
-                    const ripening = document.getElementById('factor-ripening');
-                    
-                    if (initial) initial.value = this.formulas.growthFactors.initial;
-                    if (vegetative) vegetative.value = this.formulas.growthFactors.vegetative;
-                    if (reproductive) reproductive.value = this.formulas.growthFactors.reproductive;
-                    if (ripening) ripening.value = this.formulas.growthFactors.ripening;
+                    // بارگذاری ضرایب رشد
+                    if (this.formulas.growthFactors) {
+                        const initial = document.getElementById('factor-initial');
+                        const vegetative = document.getElementById('factor-vegetative');
+                        const reproductive = document.getElementById('factor-reproductive');
+                        const ripening = document.getElementById('factor-ripening');
+                        
+                        if (initial) initial.value = this.formulas.growthFactors.initial;
+                        if (vegetative) vegetative.value = this.formulas.growthFactors.vegetative;
+                        if (reproductive) reproductive.value = this.formulas.growthFactors.reproductive;
+                        if (ripening) ripening.value = this.formulas.growthFactors.ripening;
+                    }
+                } catch (error) {
+                    console.error('خطا در بارگذاری فرمول‌ها:', error);
                 }
             }
             
@@ -2223,7 +2233,8 @@
                     return;
                 }
                 
-                if (user.password !== this.hashPassword(password)) {
+                const isPasswordValid = await this.verifyPassword(password, user.password);
+                if (!isPasswordValid) {
                     this.showAlert('نام کاربری یا رمز عبور اشتباه است', 'error', 'login-alert');
                     return;
                 }
@@ -2235,7 +2246,7 @@
                 
                 if (user.expiryDate && new Date(user.expiryDate) < new Date()) {
                     user.status = 'expired';
-                    this.saveUsers();
+                    await this.saveUsers();
                     this.showAlert('حساب کاربری شما منقضی شده است', 'error', 'login-alert');
                     return;
                 }
@@ -2258,6 +2269,8 @@
                     expiryDate: user.expiryDate
                 };
                 
+                this.isAdmin = this.currentUser.role === 'admin';
+                
                 await this.saveUsers();
                 localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
                 
@@ -2271,7 +2284,6 @@
                 const email = document.getElementById('register-email').value.trim();
                 const password = document.getElementById('register-password').value;
                 const confirmPassword = document.getElementById('register-confirm-password').value;
-                const type = document.getElementById('register-type').value;
                 
                 if (!fullName || !username || !email || !password) {
                     this.showAlert('لطفا تمام فیلدهای الزامی را پر کنید', 'error', 'register-alert');
@@ -2293,21 +2305,22 @@
                     return;
                 }
                 
+                // FIX: کاربر جدید همیشه نقش "user" دارد
                 const newUser = {
                     username: username,
-                    password: this.hashPassword(password),
+                    password: await this.hashPassword(password),
                     fullName: fullName,
                     email: email,
                     phone: '',
-                    role: type,
-                    status: 'pending',
+                    role: 'user', // همیشه کاربر عادی
+                    status: 'pending', // نیاز به تأیید مدیر
                     registrationDate: new Date().toISOString(),
                     expiryDate: this.addDays(new Date(), 365).toISOString(),
                     lastLogin: null,
                     permissions: {
-                        crops: type === 'expert' ? ['wheat', 'rice', 'saffron'] : ['wheat', 'saffron'],
-                        sections: type === 'expert' ? ['dashboard', 'planner', 'reports'] : ['dashboard', 'planner'],
-                        reports: type === 'expert' ? ['basic'] : ['basic']
+                        crops: ['wheat', 'saffron'],
+                        sections: ['dashboard', 'planner', 'history'],
+                        reports: ['basic']
                     },
                     loginLogs: []
                 };
@@ -2317,25 +2330,26 @@
                 
                 this.showAlert('ثبت‌نام شما با موفقیت انجام شد. پس از تأیید مدیر می‌توانید وارد شوید.', 'success', 'register-alert');
                 
+                // پاک کردن فرم
                 document.getElementById('register-fullname').value = '';
                 document.getElementById('register-username').value = '';
                 document.getElementById('register-email').value = '';
                 document.getElementById('register-password').value = '';
                 document.getElementById('register-confirm-password').value = '';
                 
-                this.loadDashboard();
+                this.showAuthTab('login');
             }
             
-            showMainApp() {
+            async showMainApp() {
                 document.getElementById('auth-screen').style.display = 'none';
                 document.getElementById('main-app').style.display = 'block';
                 
-                this.updateUserInfo();
-                this.loadDashboard();
+                await this.updateUserInfo();
+                await this.loadDashboard();
                 this.checkPermissions();
             }
             
-            updateUserInfo() {
+            async updateUserInfo() {
                 if (!this.currentUser) return;
                 
                 const userInfo = document.getElementById('user-info');
@@ -2345,7 +2359,7 @@
                 }
                 
                 const adminElements = document.querySelectorAll('.admin-only');
-                if (this.currentUser.role === 'admin') {
+                if (this.isAdmin) {
                     adminElements.forEach(el => el.style.display = 'flex');
                 } else {
                     adminElements.forEach(el => el.style.display = 'none');
@@ -2380,25 +2394,24 @@
             
             hasAccessToSection(section) {
                 if (!this.currentUser) return false;
-                if (this.currentUser.role === 'admin') return true;
+                if (this.isAdmin) return true;
                 
                 const permissions = this.currentUser.permissions;
                 if (permissions.sections.includes('all')) return true;
                 
-                switch(section) {
-                    case 'dashboard':
-                        return permissions.sections.includes('dashboard');
-                    case 'planner':
-                        return permissions.sections.includes('planner');
-                    case 'reports':
-                        return permissions.sections.includes('reports');
-                    case 'history':
-                        return permissions.sections.includes('history');
-                    case 'profile':
-                        return true;
-                    default:
-                        return false;
-                }
+                const sectionMap = {
+                    'dashboard': 'dashboard',
+                    'planner': 'planner',
+                    'reports': 'reports',
+                    'history': 'history',
+                    'profile': 'profile',
+                    'users': 'users',
+                    'prices': 'prices',
+                    'formulas': 'formulas',
+                    'access': 'access'
+                };
+                
+                return permissions.sections.includes(sectionMap[section]);
             }
             
             updateCropPermissions() {
@@ -2448,16 +2461,16 @@
                         this.loadDashboard();
                         break;
                     case 'users':
-                        this.loadUsersTable();
+                        if (this.isAdmin) this.loadUsersTable();
                         break;
                     case 'prices':
-                        this.loadPricesTable();
+                        if (this.isAdmin) this.loadPricesTable();
                         break;
                     case 'formulas':
-                        this.loadFormulasScreen();
+                        if (this.isAdmin) this.loadFormulasScreen();
                         break;
                     case 'access':
-                        this.loadAccessControls();
+                        if (this.isAdmin) this.loadAccessControls();
                         break;
                     case 'history':
                         this.loadHistory();
@@ -2466,6 +2479,10 @@
                         this.loadReports();
                         break;
                 }
+            }
+            
+            nextPlannerTab(tabId) {
+                this.showPlannerTab(tabId);
             }
             
             showPlannerTab(tabId) {
@@ -2493,126 +2510,131 @@
             }
             
             calculateResults() {
-                const crop = document.getElementById('crop-selection').value;
-                const region = document.getElementById('region-selection').value;
-                const growthStage = document.getElementById('growth-stage').value;
-                const area = parseFloat(document.getElementById('cultivation-area').value) || 1;
-                
-                if (area <= 0) {
-                    this.showAlert('لطفا مساحت معتبر وارد کنید', 'error');
-                    return;
-                }
-                
-                const soilData = {};
-                document.querySelectorAll('.soil-input').forEach(input => {
-                    const key = input.getAttribute('data-element');
-                    soilData[key] = parseFloat(input.value) || 0;
-                });
-                
-                const waterData = {};
-                document.querySelectorAll('.water-input').forEach(input => {
-                    const key = input.getAttribute('data-element');
-                    waterData[key] = parseFloat(input.value) || 0;
-                });
-                
-                const recommendations = {};
-                let totalCost = 0;
-                
-                const elements = ['N', 'P', 'K', 'Ca', 'Mg', 'S'];
-                const cropRequirements = this.formulas.cropRequirements[crop] || this.formulas.cropRequirements.wheat;
-                
-                elements.forEach(element => {
-                    const baseRequirement = cropRequirements[element];
-                    const soilValue = soilData[element.toLowerCase()] || 0;
+                try {
+                    const crop = document.getElementById('crop-selection').value;
+                    const region = document.getElementById('region-selection').value;
+                    const growthStage = document.getElementById('growth-stage').value;
+                    const area = parseFloat(document.getElementById('cultivation-area').value) || 1;
                     
-                    const regionFactor = this.formulas.regionFactors[region] || 1.0;
-                    const growthFactor = this.formulas.growthFactors[growthStage] || 1.0;
-                    
-                    const adjustedRequirement = baseRequirement * regionFactor * growthFactor;
-                    const netRequirement = Math.max(0, adjustedRequirement - soilValue);
-                    
-                    let efficiency;
-                    switch(element) {
-                        case 'N': efficiency = (this.formulas.nitrogen?.efficiency || 65) / 100; break;
-                        case 'P': efficiency = (this.formulas.phosphorus?.efficiency || 25) / 100; break;
-                        case 'K': efficiency = (this.formulas.potassium?.efficiency || 70) / 100; break;
-                        default: efficiency = 0.6;
+                    if (area <= 0) {
+                        this.showAlert('لطفا مساحت معتبر وارد کنید', 'error');
+                        return;
                     }
                     
-                    const totalRequirement = (netRequirement / efficiency) * area;
+                    const soilData = {};
+                    document.querySelectorAll('.soil-input').forEach(input => {
+                        const key = input.getAttribute('data-element');
+                        soilData[key] = parseFloat(input.value) || 0;
+                    });
                     
-                    const priceElement = this.prices.elements?.find(el => 
-                        el.symbol.includes(element)
-                    );
+                    const waterData = {};
+                    document.querySelectorAll('.water-input').forEach(input => {
+                        const key = input.getAttribute('data-element');
+                        waterData[key] = parseFloat(input.value) || 0;
+                    });
                     
-                    const price = priceElement ? priceElement.price : 10000;
-                    const elementCost = totalRequirement * price;
+                    const recommendations = {};
+                    let totalCost = 0;
                     
-                    recommendations[element] = {
-                        symbol: element,
-                        name: this.getElementName(element),
-                        requirement: totalRequirement,
-                        unit: 'کیلوگرم',
-                        price: price,
-                        cost: elementCost,
-                        soilValue: soilValue,
-                        efficiency: efficiency * 100
-                    };
+                    const elements = ['N', 'P', 'K', 'Ca', 'Mg', 'S'];
+                    const cropRequirements = this.formulas.cropRequirements[crop] || this.formulas.cropRequirements.wheat;
                     
-                    totalCost += elementCost;
-                });
-                
-                const micronutrients = ['Fe', 'Mn', 'Zn', 'Cu'];
-                micronutrients.forEach(element => {
-                    const soilValue = soilData[element.toLowerCase()] || 0;
-                    const baseRequirement = 0.5;
-                    
-                    if (soilValue < 0.3) {
-                        const requirement = baseRequirement * area;
+                    elements.forEach(element => {
+                        const baseRequirement = cropRequirements[element];
+                        const soilValue = soilData[element.toLowerCase()] || 0;
+                        
+                        const regionFactor = this.formulas.regionFactors[region] || 1.0;
+                        const growthFactor = this.formulas.growthFactors[growthStage] || 1.0;
+                        
+                        const adjustedRequirement = baseRequirement * regionFactor * growthFactor;
+                        const netRequirement = Math.max(0, adjustedRequirement - (soilValue / 1000)); // تبدیل mg/kg به kg/ha
+                        
+                        let efficiency;
+                        switch(element) {
+                            case 'N': efficiency = (this.formulas.nitrogen?.efficiency || 65) / 100; break;
+                            case 'P': efficiency = (this.formulas.phosphorus?.efficiency || 25) / 100; break;
+                            case 'K': efficiency = (this.formulas.potassium?.efficiency || 70) / 100; break;
+                            default: efficiency = 0.6;
+                        }
+                        
+                        const totalRequirement = (netRequirement / efficiency) * area;
+                        
                         const priceElement = this.prices.elements?.find(el => 
                             el.symbol.includes(element)
                         );
                         
-                        const price = priceElement ? priceElement.price : 100000;
-                        const elementCost = requirement * price;
+                        const price = priceElement ? priceElement.price : 10000;
+                        const elementCost = totalRequirement * price;
                         
                         recommendations[element] = {
                             symbol: element,
                             name: this.getElementName(element),
-                            requirement: requirement,
+                            requirement: totalRequirement,
                             unit: 'کیلوگرم',
                             price: price,
                             cost: elementCost,
                             soilValue: soilValue,
-                            efficiency: 30
+                            efficiency: efficiency * 100
                         };
                         
                         totalCost += elementCost;
-                    }
-                });
-                
-                this.currentCalculation = {
-                    id: Date.now(),
-                    date: new Date().toISOString(),
-                    crop: crop,
-                    region: region,
-                    growthStage: growthStage,
-                    area: area,
-                    soilData: soilData,
-                    waterData: waterData,
-                    recommendations: recommendations,
-                    totalCost: totalCost,
-                    user: this.currentUser.username,
-                    formulasUsed: {
-                        nitrogen: this.formulas.nitrogen,
-                        phosphorus: this.formulas.phosphorus,
-                        potassium: this.formulas.potassium,
-                        regionFactors: this.formulas.regionFactors,
-                        growthFactors: this.formulas.growthFactors
-                    }
-                };
-                
-                this.showResults();
+                    });
+                    
+                    const micronutrients = ['Fe', 'Mn', 'Zn', 'Cu'];
+                    micronutrients.forEach(element => {
+                        const soilValue = soilData[element.toLowerCase()] || 0;
+                        const baseRequirement = 0.5;
+                        
+                        if (soilValue < 0.3) {
+                            const requirement = baseRequirement * area;
+                            const priceElement = this.prices.elements?.find(el => 
+                                el.symbol.includes(element)
+                            );
+                            
+                            const price = priceElement ? priceElement.price : 100000;
+                            const elementCost = requirement * price;
+                            
+                            recommendations[element] = {
+                                symbol: element,
+                                name: this.getElementName(element),
+                                requirement: requirement,
+                                unit: 'کیلوگرم',
+                                price: price,
+                                cost: elementCost,
+                                soilValue: soilValue,
+                                efficiency: 30
+                            };
+                            
+                            totalCost += elementCost;
+                        }
+                    });
+                    
+                    this.currentCalculation = {
+                        id: Date.now(),
+                        date: new Date().toISOString(),
+                        crop: crop,
+                        region: region,
+                        growthStage: growthStage,
+                        area: area,
+                        soilData: soilData,
+                        waterData: waterData,
+                        recommendations: recommendations,
+                        totalCost: totalCost,
+                        user: this.currentUser.username,
+                        formulasUsed: {
+                            nitrogen: this.formulas.nitrogen,
+                            phosphorus: this.formulas.phosphorus,
+                            potassium: this.formulas.potassium,
+                            regionFactors: this.formulas.regionFactors,
+                            growthFactors: this.formulas.growthFactors
+                        }
+                    };
+                    
+                    this.showResults();
+                } catch (error) {
+                    console.error('خطا در محاسبه نتایج:', error);
+                    this.showAlert('خطا در محاسبه نتایج', 'error');
+                }
             }
             
             showResults() {
@@ -2725,7 +2747,7 @@
                 this.loadDashboard();
             }
             
-            loadDashboard() {
+            async loadDashboard() {
                 const activeUsers = Object.values(this.users).filter(user => user.status === 'active').length;
                 
                 const totalUsersElement = document.getElementById('total-users');
@@ -2749,7 +2771,7 @@
                 if (!container) return;
                 
                 let userCalculations = this.calculations;
-                if (this.currentUser?.role !== 'admin') {
+                if (!this.isAdmin) {
                     userCalculations = this.calculations.filter(calc => calc.user === this.currentUser.username);
                 }
                 
@@ -2789,7 +2811,7 @@
                 const container = document.getElementById('recent-users');
                 if (!container) return;
                 
-                if (this.currentUser?.role !== 'admin') {
+                if (!this.isAdmin) {
                     container.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">فقط مدیر سیستم می‌تواند کاربران را مشاهده کند</p>';
                     return;
                 }
@@ -2842,6 +2864,16 @@
                     const expiryDate = user.expiryDate ? 
                         new Date(user.expiryDate).toLocaleDateString('fa-IR') : 'نامحدود';
                     
+                    const actions = this.isAdmin ? `
+                        <button class="btn btn-sm btn-secondary" onclick="system.editUser('${user.username}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm ${user.status === 'active' ? 'btn-danger' : 'btn-success'}" 
+                                onclick="system.toggleUserStatus('${user.username}')" style="margin-right: 5px;">
+                            <i class="fas fa-power-off"></i>
+                        </button>
+                    ` : '';
+                    
                     html += `
                         <tr>
                             <td>${user.username}</td>
@@ -2849,15 +2881,7 @@
                             <td>${this.getRoleName(user.role)}</td>
                             <td>${statusBadge}</td>
                             <td>${expiryDate}</td>
-                            <td>
-                                <button class="btn btn-sm btn-secondary" onclick="system.editUser('${user.username}')">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-sm ${user.status === 'active' ? 'btn-danger' : 'btn-success'}" 
-                                        onclick="system.toggleUserStatus('${user.username}')" style="margin-right: 5px;">
-                                    <i class="fas fa-power-off"></i>
-                                </button>
-                            </td>
+                            <td>${actions}</td>
                         </tr>
                     `;
                 });
@@ -2872,6 +2896,11 @@
                 let html = '';
                 
                 (this.prices.elements || []).forEach(element => {
+                    const canEdit = this.isAdmin;
+                    const buttonHtml = canEdit ? 
+                        `<button class="btn btn-sm btn-primary" onclick="system.updatePrice(${element.id})">به‌روزرسانی</button>` :
+                        `<button class="btn btn-sm btn-primary" disabled>به‌روزرسانی</button>`;
+                    
                     html += `
                         <tr>
                             <td>${element.name}</td>
@@ -2881,15 +2910,11 @@
                                 <input type="number" class="form-control" 
                                        id="price-${element.id}" 
                                        value="${element.price}"
-                                       style="width: 150px; display: inline-block;">
+                                       style="width: 150px; display: inline-block;"
+                                       ${canEdit ? '' : 'disabled'}>
                             </td>
                             <td>${new Date(element.lastUpdate).toLocaleDateString('fa-IR')}</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" 
-                                        onclick="system.updatePrice(${element.id})">
-                                    به‌روزرسانی
-                                </button>
-                            </td>
+                            <td>${buttonHtml}</td>
                         </tr>
                     `;
                 });
@@ -2934,7 +2959,7 @@
                 if (!container) return;
                 
                 let userReports = this.calculations;
-                if (this.currentUser?.role !== 'admin') {
+                if (!this.isAdmin) {
                     userReports = this.calculations.filter(calc => calc.user === this.currentUser.username);
                 }
                 
@@ -2979,7 +3004,7 @@
             }
             
             loadFormulasScreen() {
-                console.log('صفحه فرمول‌ها بارگذاری شد');
+                // بارگذاری فرمول‌ها قبلاً انجام شده
             }
             
             loadAccessControls() {
@@ -3129,7 +3154,7 @@
                     user.phone = document.getElementById('profile-phone').value;
                     
                     if (newPassword) {
-                        user.password = this.hashPassword(newPassword);
+                        user.password = await this.hashPassword(newPassword);
                     }
                     
                     await this.saveUsers();
@@ -3145,9 +3170,13 @@
                 }
             }
             
-            showUserModal() {
+            showUserModal(user = null) {
                 document.getElementById('user-modal').classList.add('active');
                 this.resetUserModal();
+                
+                if (user) {
+                    this.editUser(user);
+                }
             }
             
             resetUserModal() {
@@ -3159,9 +3188,12 @@
                 document.getElementById('modal-confirm-password').value = '';
                 document.getElementById('modal-role').value = 'user';
                 document.getElementById('modal-expiry').value = '';
+                
+                // غیرفعال کردن فیلد نقش برای کاربران غیر مدیر
+                document.getElementById('modal-role').disabled = !this.isAdmin;
             }
             
-            async editUser(username) {
+            editUser(username) {
                 const user = this.users[username];
                 if (!user) return;
                 
@@ -3175,39 +3207,83 @@
                     document.getElementById('modal-expiry').value = user.expiryDate.split('T')[0];
                 }
                 
-                document.getElementById('user-modal').classList.add('active');
-                
-                document.getElementById('modal-save-user-btn').onclick = () => this.updateUser(username);
+                document.getElementById('modal-username').disabled = true;
+                document.getElementById('modal-role').disabled = !this.isAdmin;
             }
             
-            async updateUser(username) {
-                const user = this.users[username];
-                if (!user) return;
-                
-                const newPassword = document.getElementById('modal-password').value;
+            async saveUser() {
+                const username = document.getElementById('modal-username').value;
+                const fullName = document.getElementById('modal-fullname').value;
+                const email = document.getElementById('modal-email').value;
+                const phone = document.getElementById('modal-phone').value;
+                const password = document.getElementById('modal-password').value;
                 const confirmPassword = document.getElementById('modal-confirm-password').value;
+                const role = document.getElementById('modal-role').value;
+                const expiryDate = document.getElementById('modal-expiry').value;
                 
-                if (newPassword && newPassword !== confirmPassword) {
+                if (!username || !fullName) {
+                    this.showAlert('لطفا نام کاربری و نام کامل را وارد کنید', 'error', 'user-modal-alert');
+                    return;
+                }
+                
+                if (password && password !== confirmPassword) {
                     this.showAlert('رمز عبور و تکرار آن یکسان نیستند', 'error', 'user-modal-alert');
                     return;
                 }
                 
-                user.fullName = document.getElementById('modal-fullname').value;
-                user.email = document.getElementById('modal-email').value;
-                user.phone = document.getElementById('modal-phone').value;
-                user.role = document.getElementById('modal-role').value;
+                let user = this.users[username];
+                const isNewUser = !user;
                 
-                const expiryDate = document.getElementById('modal-expiry').value;
-                user.expiryDate = expiryDate ? new Date(expiryDate).toISOString() : null;
-                
-                if (newPassword) {
-                    user.password = this.hashPassword(newPassword);
+                if (isNewUser) {
+                    if (this.users[username]) {
+                        this.showAlert('این نام کاربری قبلاً ثبت شده است', 'error', 'user-modal-alert');
+                        return;
+                    }
+                    
+                    user = {
+                        username: username,
+                        password: await this.hashPassword(password || 'User@2024'),
+                        fullName: fullName,
+                        email: email,
+                        phone: phone,
+                        role: role,
+                        status: 'active',
+                        registrationDate: new Date().toISOString(),
+                        expiryDate: expiryDate ? new Date(expiryDate).toISOString() : null,
+                        lastLogin: null,
+                        permissions: {
+                            crops: ['wheat', 'saffron'],
+                            sections: ['dashboard', 'planner', 'history'],
+                            reports: ['basic']
+                        },
+                        loginLogs: []
+                    };
+                } else {
+                    user.fullName = fullName;
+                    user.email = email;
+                    user.phone = phone;
+                    
+                    // فقط مدیر می‌تواند نقش را تغییر دهد
+                    if (this.isAdmin) {
+                        user.role = role;
+                    }
+                    
+                    if (expiryDate) {
+                        user.expiryDate = new Date(expiryDate).toISOString();
+                    }
+                    
+                    if (password) {
+                        user.password = await this.hashPassword(password);
+                    }
                 }
                 
+                this.users[username] = user;
                 await this.saveUsers();
-                this.showAlert('اطلاعات کاربر با موفقیت به‌روزرسانی شد', 'success');
+                
+                this.showAlert(`کاربر با موفقیت ${isNewUser ? 'ایجاد' : 'به‌روزرسانی'} شد`, 'success');
                 document.getElementById('user-modal').classList.remove('active');
                 this.loadUsersTable();
+                this.loadDashboard();
             }
             
             async toggleUserStatus(username) {
@@ -3258,60 +3334,85 @@
             }
             
             async saveFormula(formulaType) {
-                switch(formulaType) {
-                    case 'nitrogen':
-                        this.formulas.nitrogen = {
-                            base: parseFloat(document.getElementById('formula-n-base').value),
-                            regionFactor: parseFloat(document.getElementById('formula-n-region').value),
-                            efficiency: parseFloat(document.getElementById('formula-n-efficiency').value),
-                            leachingFactor: parseFloat(document.getElementById('formula-n-leaching').value)
-                        };
-                        break;
-                    
-                    case 'phosphorus':
-                        this.formulas.phosphorus = {
-                            base: parseFloat(document.getElementById('formula-p-base').value),
-                            phFactor: parseFloat(document.getElementById('formula-p-ph').value),
-                            organicFactor: parseFloat(document.getElementById('formula-p-organic').value),
-                            efficiency: parseFloat(document.getElementById('formula-p-efficiency').value)
-                        };
-                        break;
-                    
-                    case 'potassium':
-                        this.formulas.potassium = {
-                            base: parseFloat(document.getElementById('formula-k-base').value),
-                            textureFactor: parseFloat(document.getElementById('formula-k-texture').value),
-                            moistureFactor: parseFloat(document.getElementById('formula-k-moisture').value),
-                            efficiency: parseFloat(document.getElementById('formula-k-efficiency').value)
-                        };
-                        break;
+                if (!this.isAdmin) {
+                    this.showAlert('فقط مدیر سیستم می‌تواند فرمول‌ها را تغییر دهد', 'error');
+                    return;
                 }
                 
-                await this.saveFormulas();
-                this.showAlert('فرمول با موفقیت ذخیره شد', 'success');
+                try {
+                    switch(formulaType) {
+                        case 'nitrogen':
+                            this.formulas.nitrogen = {
+                                base: parseFloat(document.getElementById('formula-n-base').value),
+                                regionFactor: parseFloat(document.getElementById('formula-n-region').value),
+                                efficiency: parseFloat(document.getElementById('formula-n-efficiency').value),
+                                leachingFactor: parseFloat(document.getElementById('formula-n-leaching').value)
+                            };
+                            break;
+                        
+                        case 'phosphorus':
+                            this.formulas.phosphorus = {
+                                base: parseFloat(document.getElementById('formula-p-base').value),
+                                phFactor: parseFloat(document.getElementById('formula-p-ph').value),
+                                organicFactor: parseFloat(document.getElementById('formula-p-organic').value),
+                                efficiency: parseFloat(document.getElementById('formula-p-efficiency').value)
+                            };
+                            break;
+                        
+                        case 'potassium':
+                            this.formulas.potassium = {
+                                base: parseFloat(document.getElementById('formula-k-base').value),
+                                textureFactor: parseFloat(document.getElementById('formula-k-texture').value),
+                                moistureFactor: parseFloat(document.getElementById('formula-k-moisture').value),
+                                efficiency: parseFloat(document.getElementById('formula-k-efficiency').value)
+                            };
+                            break;
+                    }
+                    
+                    await this.saveFormulas();
+                    this.showAlert('فرمول با موفقیت ذخیره شد', 'success');
+                } catch (error) {
+                    console.error('خطا در ذخیره فرمول:', error);
+                    this.showAlert('خطا در ذخیره فرمول', 'error');
+                }
             }
             
             async saveAllFactors() {
-                this.formulas.regionFactors = {
-                    north: parseFloat(document.getElementById('factor-north').value),
-                    central: parseFloat(document.getElementById('factor-central').value),
-                    south: parseFloat(document.getElementById('factor-south').value),
-                    east: parseFloat(document.getElementById('factor-east').value),
-                    west: parseFloat(document.getElementById('factor-west').value)
-                };
+                if (!this.isAdmin) {
+                    this.showAlert('فقط مدیر سیستم می‌تواند ضرایب را تغییر دهد', 'error');
+                    return;
+                }
                 
-                this.formulas.growthFactors = {
-                    initial: parseFloat(document.getElementById('factor-initial').value),
-                    vegetative: parseFloat(document.getElementById('factor-vegetative').value),
-                    reproductive: parseFloat(document.getElementById('factor-reproductive').value),
-                    ripening: parseFloat(document.getElementById('factor-ripening').value)
-                };
-                
-                await this.saveFormulas();
-                this.showAlert('همه ضرایب با موفقیت ذخیره شدند', 'success');
+                try {
+                    this.formulas.regionFactors = {
+                        north: parseFloat(document.getElementById('factor-north').value),
+                        central: parseFloat(document.getElementById('factor-central').value),
+                        south: parseFloat(document.getElementById('factor-south').value),
+                        east: parseFloat(document.getElementById('factor-east').value),
+                        west: parseFloat(document.getElementById('factor-west').value)
+                    };
+                    
+                    this.formulas.growthFactors = {
+                        initial: parseFloat(document.getElementById('factor-initial').value),
+                        vegetative: parseFloat(document.getElementById('factor-vegetative').value),
+                        reproductive: parseFloat(document.getElementById('factor-reproductive').value),
+                        ripening: parseFloat(document.getElementById('factor-ripening').value)
+                    };
+                    
+                    await this.saveFormulas();
+                    this.showAlert('همه ضرایب با موفقیت ذخیره شدند', 'success');
+                } catch (error) {
+                    console.error('خطا در ذخیره ضرایب:', error);
+                    this.showAlert('خطا در ذخیره ضرایب', 'error');
+                }
             }
             
             async savePermissions(username) {
+                if (!this.isAdmin) {
+                    this.showAlert('فقط مدیر سیستم می‌تواند دسترسی‌ها را تغییر دهد', 'error');
+                    return;
+                }
+                
                 const user = this.users[username];
                 if (!user) return;
                 
@@ -3341,6 +3442,7 @@
             }
             
             loadHistory() {
+                this.currentPage = 1;
                 this.loadHistoryPage();
             }
             
@@ -3353,7 +3455,7 @@
                 
                 let filteredCalculations = this.calculations;
                 
-                if (this.currentUser?.role !== 'admin') {
+                if (!this.isAdmin) {
                     filteredCalculations = this.calculations.filter(calc => calc.user === this.currentUser.username);
                 }
                 
@@ -3426,11 +3528,26 @@
                 document.getElementById('next-page').disabled = this.currentPage >= totalPages;
             }
             
+            prevPage() {
+                if (this.currentPage > 1) {
+                    this.currentPage--;
+                    this.loadHistoryPage();
+                }
+            }
+            
+            nextPage() {
+                const totalPages = Math.ceil(this.calculations.length / this.itemsPerPage);
+                if (this.currentPage < totalPages) {
+                    this.currentPage++;
+                    this.loadHistoryPage();
+                }
+            }
+            
             viewReport(calculationId) {
                 const calculation = this.calculations.find(c => c.id === calculationId);
                 if (!calculation) return;
                 
-                if (this.currentUser?.role !== 'admin' && calculation.user !== this.currentUser.username) {
+                if (!this.isAdmin && calculation.user !== this.currentUser.username) {
                     this.showAlert('شما دسترسی به این گزارش را ندارید', 'error');
                     return;
                 }
@@ -3546,7 +3663,7 @@
                 window.print();
             }
             
-            handleLogout() {
+            async handleLogout() {
                 if (this.currentUser) {
                     const username = this.currentUser.username;
                     const user = this.users[username];
@@ -3557,12 +3674,13 @@
                             lastLog.logoutTime = new Date().toISOString();
                             const loginTime = new Date(lastLog.loginTime);
                             lastLog.duration = Math.round((new Date() - loginTime) / (1000 * 60));
-                            this.saveUsers();
+                            await this.saveUsers();
                         }
                     }
                 }
                 
                 this.currentUser = null;
+                this.isAdmin = false;
                 localStorage.removeItem('currentUser');
                 
                 document.getElementById('main-app').style.display = 'none';
@@ -3590,9 +3708,21 @@
                 }
             }
             
-            // توابع کمکی
-            hashPassword(password) {
-                return btoa(password);
+            // ==================== توابع کمکی بهبود یافته ====================
+            
+            async hashPassword(password) {
+                // استفاده از SHA-256 برای هش کردن رمز عبور
+                const encoder = new TextEncoder();
+                const data = encoder.encode(password);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                return hashHex;
+            }
+            
+            async verifyPassword(password, hash) {
+                const newHash = await this.hashPassword(password);
+                return newHash === hash;
             }
             
             addDays(date, days) {
@@ -3602,7 +3732,7 @@
             }
             
             formatCurrency(amount) {
-                return new Intl.NumberFormat('fa-IR').format(amount) + ' ریال';
+                return new Intl.NumberFormat('fa-IR').format(Math.round(amount)) + ' ریال';
             }
             
             getElementName(symbol) {
@@ -3666,10 +3796,9 @@
         }
 
         // راه‌اندازی سیستم
-        const system = new NutritionManagementSystem();
-        
-        // قرار دادن سیستم در دسترس جهانی
-        window.system = system;
+        document.addEventListener('DOMContentLoaded', async () => {
+            window.system = new NutritionManagementSystem();
+        });
     </script>
 </body>
 </html>
